@@ -48,7 +48,7 @@ button:focus-visible {
   position: relative;
   z-index: 20;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto;
   align-items: start;
   min-height: 82px;
   border-bottom: 1px solid var(--line);
@@ -68,24 +68,13 @@ button:focus-visible {
   text-decoration: none;
 }
 
-.header-status,
 .header-back,
-.eyebrow,
-.track-stage__label,
-.track-stage__corner,
-.race-progress,
-.scroll-cue {
+.eyebrow {
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   line-height: 1.3;
   text-transform: uppercase;
-}
-
-.header-status {
-  display: flex;
-  gap: 1.5rem;
-  color: var(--muted);
 }
 
 .header-back {
@@ -106,9 +95,6 @@ button:focus-visible {
 }
 
 .projects-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.28fr);
-  align-items: end;
   min-height: min(68vh, 650px);
   padding: clamp(5rem, 11vw, 9rem) 0 clamp(4.5rem, 9vw, 7rem);
 }
@@ -154,18 +140,6 @@ h1 em {
   line-height: 1.45;
 }
 
-.intro-readout {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  align-self: end;
-  color: var(--muted);
-  font-size: 0.67rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
 .projects-race {
   position: relative;
   height: 620vh;
@@ -174,6 +148,8 @@ h1 em {
 .projects-race__sticky {
   position: sticky;
   top: 0;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
   min-height: 100dvh;
   height: 100dvh;
   overflow: hidden;
@@ -183,15 +159,18 @@ h1 em {
 .track-stage {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  width: 100%;
+  z-index: 0;
   overflow: hidden;
 }
 
-.track-stage::before,
-.track-stage::after {
+.track-stage::before {
   position: absolute;
-  color: rgba(17, 19, 17, 0.05);
-  font-size: clamp(9rem, 24vw, 23rem);
+  content: "SUZUKA";
+  top: -6%;
+  right: -6%;
+  color: rgba(17, 19, 17, 0.055);
+  font-size: clamp(9rem, 24vw, 24rem);
   font-weight: 800;
   letter-spacing: -0.12em;
   line-height: 0.8;
@@ -199,49 +178,36 @@ h1 em {
   user-select: none;
 }
 
-.track-stage::before {
-  content: "SUZUKA";
-  top: 4%;
-  right: -1%;
-}
-
-.track-stage::after {
-  content: "01—04";
-  bottom: -2%;
-  left: 21%;
-}
-
-.track-stage__label,
-.track-stage__corner {
+.ghost-number {
   position: absolute;
-  z-index: 2;
-  color: rgba(17, 19, 17, 0.48);
+  right: 0;
+  bottom: -12%;
+  z-index: 0;
+  color: rgba(17, 19, 17, 0.028);
+  font-size: clamp(18rem, 43vw, 45rem);
+  font-weight: 800;
+  letter-spacing: -0.14em;
+  line-height: 0.72;
   pointer-events: none;
+  user-select: none;
+  transition: opacity 220ms ease, transform 220ms ease;
 }
 
-.track-stage__label--top {
-  top: 2rem;
-  right: 3rem;
-}
-
-.track-stage__label--bottom {
-  bottom: 2.5rem;
-  left: 24%;
-}
-
-.track-stage__corner {
-  right: 3rem;
-  bottom: 2.5rem;
+.ghost-number.is-changing {
+  opacity: 0;
+  transform: translateY(16px);
 }
 
 .track-map {
   position: absolute;
   top: 50%;
-  left: 24%;
-  width: min(75vw, 1050px);
+  left: 32%;
+  width: min(88vw, 1280px);
+  max-width: none;
   height: auto;
   overflow: visible;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(1.02);
+  transform-origin: center;
 }
 
 .track-path {
@@ -252,18 +218,19 @@ h1 em {
 
 .track-path--base {
   stroke: #d5d7d0;
-  stroke-width: 16;
+  stroke-width: 14;
 }
 
 .track-path--completed {
   stroke: var(--accent);
-  stroke-width: 16;
+  stroke-width: 14;
+  stroke-linecap: butt;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
 }
 
 .start-finish {
-  opacity: 0.65;
+  opacity: 0.55;
 }
 
 .checkpoint {
@@ -271,29 +238,19 @@ h1 em {
   transition: color 220ms ease;
 }
 
-.checkpoint__halo {
-  fill: transparent;
-  stroke: currentColor;
-  stroke-width: 1;
-  opacity: 0.45;
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: fill 220ms ease, opacity 220ms ease, transform 220ms ease;
-}
-
 .checkpoint__dot {
   fill: var(--paper);
   stroke: currentColor;
   stroke-width: 2;
-  transition: fill 220ms ease, stroke 220ms ease;
+  transition: fill 220ms ease, stroke 220ms ease, r 220ms ease;
 }
 
 .checkpoint__label {
   fill: currentColor;
   font-family: "Manrope", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 800;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-anchor: middle;
 }
 
@@ -302,25 +259,14 @@ h1 em {
   color: var(--accent);
 }
 
-.checkpoint.is-active .checkpoint__halo {
-  fill: var(--accent-soft);
-  opacity: 0.9;
-  transform: scale(1.35);
-}
-
 .checkpoint.is-active .checkpoint__dot {
   fill: var(--accent);
   stroke: var(--accent);
+  r: 6px;
 }
 
 .race-car {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.race-car__shadow {
-  fill: rgba(17, 19, 17, 0.08);
-  transform: translateY(4px);
+  pointer-events: none;
 }
 
 .race-car__body,
@@ -328,10 +274,7 @@ h1 em {
   fill: var(--accent);
 }
 
-.race-car__cockpit {
-  fill: var(--ink);
-}
-
+.race-car__cockpit,
 .race-car__wheel {
   fill: var(--ink);
 }
@@ -339,43 +282,27 @@ h1 em {
 .project-panel {
   position: absolute;
   top: 50%;
-  left: clamp(1.5rem, 5vw, 5.5rem);
-  z-index: 5;
-  width: min(33vw, 430px);
+  left: clamp(1.5rem, 4vw, 5rem);
+  z-index: 4;
+  width: min(44vw, 650px);
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
   border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--line);
-  background: rgba(246, 246, 242, 0.9);
-  padding: 1rem clamp(1.1rem, 2.5vw, 2.25rem) 2rem;
+  background: var(--paper-deep);
+  padding: 1.15rem clamp(1.2rem, 2.7vw, 2.8rem) 2rem;
   transform: translateY(-50%);
-  transition: left 500ms cubic-bezier(0.2, 0.75, 0.25, 1), right 500ms cubic-bezier(0.2, 0.75, 0.25, 1);
-}
-
-.projects-race.is-card-right .project-panel {
-  right: clamp(1.5rem, 5vw, 5.5rem);
-  left: auto;
-}
-
-.project-panel__topline,
-.race-progress__heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  color: var(--muted);
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  line-height: 1.3;
-  text-transform: uppercase;
-}
-
-#panel-status {
-  color: var(--accent);
 }
 
 .project-panel__content {
-  padding-top: clamp(4rem, 8vw, 7rem);
+  display: block;
+  padding-top: clamp(1.8rem, 3vw, 2.8rem);
   transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.project-panel__copy {
+  min-width: 0;
+  padding-top: clamp(1.25rem, 2vw, 1.85rem);
 }
 
 .project-panel.is-changing .project-panel__content {
@@ -392,10 +319,16 @@ h1 em {
 }
 
 .project-panel h2 {
-  max-width: 7ch;
+  max-width: 100%;
   margin-bottom: 1rem;
-  font-size: clamp(3rem, 6.5vw, 6rem);
+  font-size: clamp(2.9rem, 5vw, 5.25rem);
   line-height: 0.86;
+  overflow-wrap: anywhere;
+}
+
+.project-panel[data-project="sulatbaybayin"] h2 {
+  max-width: 100%;
+  font-size: clamp(2.25rem, 4.15vw, 4.2rem);
 }
 
 .project-panel__award {
@@ -415,11 +348,11 @@ h1 em {
 }
 
 .project-panel__description {
-  max-width: 33ch;
+  max-width: 28ch;
   min-height: 3.1em;
   margin-bottom: 1.8rem;
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   line-height: 1.5;
 }
 
@@ -450,71 +383,208 @@ h1 em {
   font-weight: 700;
 }
 
-.race-progress {
-  position: absolute;
-  right: 3rem;
-  bottom: 2.4rem;
-  z-index: 5;
-  width: min(31vw, 420px);
-  color: var(--muted);
-}
-
-.race-progress__heading {
-  margin-bottom: 0.7rem;
-}
-
-.race-progress__rail {
-  height: 3px;
+.project-artwork {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  aspect-ratio: 16 / 8;
   overflow: hidden;
-  background: var(--line);
+  background: var(--paper-deep);
 }
 
-.race-progress__fill {
+.project-artwork img {
   display: block;
-  width: 0;
+  width: 100%;
   height: 100%;
-  background: var(--accent);
-  transition: width 120ms linear;
+  object-fit: cover;
 }
 
-.race-progress__markers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-  padding-top: 0.7rem;
-  color: rgba(17, 19, 17, 0.5);
-  font-size: 0.58rem;
-  letter-spacing: 0.04em;
-}
-
-.race-progress__markers span.is-active {
-  color: var(--accent);
-}
-
-.scroll-cue {
+.project-artwork__variant {
   position: absolute;
-  bottom: 2.5rem;
-  left: 3rem;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  color: var(--muted);
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 260ms ease, visibility 260ms ease;
 }
 
-.scroll-cue__line {
-  display: inline-block;
-  width: 28px;
-  height: 1px;
+.project-artwork[data-project="zeni"] .project-artwork__variant--zeni,
+.project-artwork[data-project="kairo"] .project-artwork__variant--kairo,
+.project-artwork[data-project="ayudapay"] .project-artwork__variant--ayudapay,
+.project-artwork[data-project="sulatbaybayin"] .project-artwork__variant--sulat {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-artwork__variant--zeni {
   background: var(--accent);
+}
+
+.project-artwork__variant--kairo {
+  background: #deded8;
+}
+
+.project-artwork__variant--ayudapay {
+  background: var(--ink);
+}
+
+.project-artwork__variant--sulat {
+  background: var(--paper-deep);
+}
+
+.artwork-word,
+.artwork-corner,
+.artwork-orbit,
+.artwork-block,
+.artwork-card,
+.artwork-grid,
+.artwork-stroke {
+  position: absolute;
+}
+
+.artwork-word {
+  top: 48%;
+  left: 9%;
+  z-index: 2;
+  color: #fff;
+  font-size: clamp(1.55rem, 3vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.09em;
+  line-height: 0.84;
+  transform: translateY(-50%);
+}
+
+.artwork-word--baybayin {
+  top: 34%;
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2.6vw, 2.5rem);
+  letter-spacing: 0.01em;
+}
+
+.artwork-corner {
+  top: 0.8rem;
+  right: 0.9rem;
+  z-index: 3;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.57rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.project-artwork__variant--kairo .artwork-corner,
+.project-artwork__variant--sulat .artwork-corner {
+  color: rgba(17, 19, 17, 0.52);
+}
+
+.artwork-orbit {
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  transform: rotate(-28deg);
+}
+
+.artwork-orbit--one {
+  top: -48%;
+  right: -38%;
+  width: 128%;
+  height: 158%;
+}
+
+.artwork-orbit--two {
+  top: -23%;
+  right: 3%;
+  width: 55%;
+  height: 120%;
+}
+
+.artwork-block {
+  background: var(--ink);
+}
+
+.artwork-block--one {
+  top: 10%;
+  left: 9%;
+  width: 52%;
+  height: 18%;
+}
+
+.artwork-block--two {
+  right: 9%;
+  bottom: 10%;
+  width: 34%;
+  height: 40%;
+  background: var(--accent);
+}
+
+.artwork-block--three {
+  right: 28%;
+  top: 37%;
+  width: 17%;
+  height: 17%;
+  background: var(--accent);
+}
+
+.artwork-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 44%;
+  height: 43%;
+  padding: 0.65rem;
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.artwork-card small {
+  font-size: 0.42rem;
+  letter-spacing: 0.08em;
+}
+
+.artwork-card--one {
+  top: 11%;
+  left: 9%;
+}
+
+.artwork-card--two {
+  right: 9%;
+  bottom: 11%;
+  background: var(--accent);
+  color: #fff;
+}
+
+.artwork-grid {
+  inset: 0;
+  opacity: 0.42;
+  background-image: linear-gradient(rgba(17, 19, 17, 0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(17, 19, 17, 0.14) 1px, transparent 1px);
+  background-size: 17px 17px;
+}
+
+.artwork-stroke {
+  z-index: 2;
+  width: 82%;
+  height: 1px;
+  background: var(--ink);
+}
+
+.artwork-stroke--one {
+  top: 36%;
+  left: -8%;
+  transform: rotate(-21deg);
+}
+
+.artwork-stroke--two {
+  top: 67%;
+  right: -9%;
+  transform: rotate(31deg);
 }
 
 .lap-complete {
   position: absolute;
   top: 50%;
-  left: 50%;
+  left: 57%;
   z-index: 10;
-  width: min(90vw, 560px);
+  width: min(90vw, 520px);
   border-top: 1px solid var(--ink);
   background: rgba(246, 246, 242, 0.96);
   padding: 1.3rem clamp(1.25rem, 3vw, 2.5rem) 2.5rem;
@@ -560,13 +630,8 @@ h1 em {
   }
 
   .projects-header {
-    grid-template-columns: 1fr auto;
     min-height: 72px;
     padding: 1.35rem 0;
-  }
-
-  .header-status {
-    display: none;
   }
 
   .header-back {
@@ -574,20 +639,8 @@ h1 em {
   }
 
   .projects-intro {
-    grid-template-columns: 1fr;
     min-height: auto;
     padding: 6rem 0 5.5rem;
-  }
-
-  .intro-readout {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.25rem;
-    margin-top: 4rem;
-  }
-
-  .projects-race {
-    height: 500vh;
   }
 
   .projects-race__sticky {
@@ -601,60 +654,57 @@ h1 em {
   .track-stage {
     position: absolute;
     inset: 0 0 auto;
+    width: 100%;
     height: 45dvh;
   }
 
-  .track-stage::before,
-  .track-stage::after {
-    font-size: 26vw;
+  .track-stage::before {
+    top: -3%;
+    right: -14%;
+    font-size: 28vw;
   }
 
-  .track-stage__label--top {
-    top: 1.4rem;
-    right: 1rem;
-  }
-
-  .track-stage__label--bottom {
-    bottom: 1rem;
-    left: 1rem;
-  }
-
-  .track-stage__corner {
-    right: 1rem;
-    bottom: 1rem;
+  .ghost-number {
+    right: -5%;
+    bottom: -16%;
+    font-size: 72vw;
   }
 
   .track-map {
     top: 50%;
-    left: 4%;
-    width: 92vw;
+    left: 3%;
+    width: 102vw;
+    transform: translateY(-50%) scale(1.02);
   }
 
   .track-path--base,
   .track-path--completed {
-    stroke-width: 13;
+    stroke-width: 11.5;
   }
 
-  .project-panel,
-  .projects-race.is-card-right .project-panel {
+  .project-panel {
     position: relative;
     top: auto;
-    right: auto;
     left: auto;
     z-index: 5;
-    width: 100%;
-    margin: 0 0 5rem;
-    padding: 1rem 0 1.5rem;
-    background: transparent;
+    width: calc(100% - 2rem);
+    max-height: calc(55dvh - 1rem);
+    margin: 0 1rem 1rem;
+    background: var(--paper-deep);
+    padding: 1rem 1.2rem 1.3rem;
     transform: none;
   }
 
   .project-panel__content {
-    padding-top: 2rem;
+    padding-top: 1.1rem;
   }
 
   .project-panel h2 {
-    font-size: clamp(3rem, 16vw, 5.4rem);
+    font-size: clamp(2.65rem, 13vw, 5.4rem);
+  }
+
+  .project-panel[data-project="sulatbaybayin"] h2 {
+    font-size: clamp(2.2rem, 11vw, 4.5rem);
   }
 
   .project-panel__description {
@@ -662,34 +712,20 @@ h1 em {
     max-width: 34ch;
   }
 
-  .race-progress {
-    right: 1rem;
-    bottom: 1rem;
-    left: 1rem;
-    width: auto;
-  }
-
-  .race-progress__markers span {
-    overflow: hidden;
-    font-size: 0.52rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .scroll-cue {
-    top: calc(45dvh + 0.75rem);
-    right: 1rem;
-    bottom: auto;
-    left: auto;
-    font-size: 0.57rem;
-  }
-
-  .scroll-cue__line {
-    width: 16px;
-  }
-
   .lap-complete {
     top: 58%;
+    left: 50%;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-panel__content {
+    padding-top: 0.85rem;
+  }
+
+  .project-artwork {
+    width: 100%;
+    aspect-ratio: 16 / 7;
   }
 }
 
@@ -706,4 +742,5 @@ h1 em {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+
 }

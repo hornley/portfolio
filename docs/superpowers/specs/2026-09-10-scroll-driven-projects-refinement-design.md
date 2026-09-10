@@ -22,6 +22,7 @@ The route should feel like an editorial portfolio using an F1 lap as navigation,
 - Mobile track-above-card composition.
 - Lap-complete ending state.
 - Temporary abstract artwork until real project screenshots are provided.
+- Car smoke deferred for a future visual pass.
 
 ## Motion correctness
 
@@ -30,6 +31,8 @@ The completed trail and car share one normalized `progress` value. The gray circ
 This is a hard invariant: the endpoint of the blue trail must coincide with the center of the car at every scroll position, including after responsive SVG resizing. There must be no disconnected blue segments ahead of the car. No mobile-only progress values, arbitrary offsets, checkpoint corrections, or manually tuned trail percentages are allowed.
 
 Verify the invariant at 0%, 10%, 25%, 50%, 75%, 90%, and 100% on desktop and mobile, including after resize. At 0% the trail is invisible; at 100% the entire circuit is blue.
+
+The normalized scroll mapping includes one shared, small boundary buffer at both ends of the race section. The car and completed trail hold at the path origin briefly before motion begins, and hold at the finish briefly before the sticky section releases. The buffer is the same on desktop and mobile and does not alter the canonical path progress once the lap is active.
 
 ## Track-stage width
 
@@ -84,9 +87,9 @@ Each active project includes:
 
 The artwork and text fade/translate together at checkpoint changes rather than being replaced abruptly. Long titles such as SulatBaybayin must remain readable without colliding with the artwork or metadata.
 
-## Car smoke
+## Deferred car smoke
 
-Add a restrained smoke group behind the car, inside the `#race-car` group and before the car body. Smoke puffs use muted gray/off-white fills, remain subordinate to the track and project panel, and rotate with the car because they are positioned in the car's local coordinate system. Reduced-motion mode disables the smoke animation while preserving the car and trail fallback behavior.
+Smoke is intentionally excluded from the current implementation so the car/path alignment can remain easy to evaluate. In a future visual pass, add a restrained smoke group behind the car, inside the `#race-car` group and before the car body. Smoke puffs should use muted gray/off-white fills, remain subordinate to the track and project panel, rotate with the car because they are positioned in the car's local coordinate system, dissipate quickly, scale down on mobile, and become static or disabled for reduced motion.
 
 ## Visual hierarchy
 
@@ -105,6 +108,7 @@ The track remains large and visually important, but cropping is minimal and inte
 ## Interaction behavior
 
 - Scroll progress continues to drive one continuous car path.
+- A small shared start/end buffer prevents the car, trail, and project transition from activating or ending abruptly at the section boundaries.
 - Project index still changes at the existing checkpoint boundaries.
 - Panel text and artwork receive the existing short crossfade/translate transition.
 - Ghost number transitions at the same checkpoint as the panel.
@@ -134,11 +138,13 @@ The track remains large and visually important, but cropping is minimal and inte
 11. Every project has a distinct, large artwork slot above its content.
 12. Panel artwork and text transition together at checkpoints.
 13. Real future screenshots can replace the artwork slots without changing scroll logic.
-14. The car has restrained rear smoke, with animation disabled for reduced motion.
+14. Car smoke is deferred and is not present in the current implementation.
 15. Mobile remains readable and reduced-motion behavior still works.
 16. The track stage uses the full available viewport width within the page margins and is not constrained by the project-card width.
 17. The active project card is substantially larger than the previous draft and visually occupies the left side as a primary portfolio feature.
 18. The project image preview is the dominant visual element inside the project card.
 19. Project card hierarchy is image, title, award/meta, category, description, then project CTA.
 20. Track cropping occurs only because of deliberate viewport composition, not because the track-stage wrapper is too narrow.
-21. Rear smoke originates behind the car, follows its orientation, dissipates quickly, and never obscures track checkpoints or project content.
+21. Future car smoke must originate behind the car, follow its orientation, dissipate quickly, and never obscure track checkpoints or project content.
+22. The car and trail hold briefly at the path origin before moving and at the finish before the sticky section releases.
+23. The same normalized start/end buffer is used on desktop and mobile without separate progress corrections.
