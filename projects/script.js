@@ -12,7 +12,6 @@ const panelDescription = document.querySelector("#panel-description");
 const panelAction = document.querySelector("#panel-action");
 const projectArtwork = document.querySelector("#project-artwork");
 const ghostNumber = document.querySelector("#ghost-number");
-const lapComplete = document.querySelector("#lap-complete");
 
 const projects = [
   {
@@ -140,8 +139,6 @@ function updateTrack(progress) {
     checkpoint.classList.toggle("is-active", index === getProjectIndex(progress) && progress < 0.94);
   });
 
-  lapComplete.classList.toggle("is-visible", progress >= 0.94);
-  lapComplete.setAttribute("aria-hidden", String(progress < 0.94));
   panel.setAttribute("aria-hidden", String(progress >= 0.94));
 }
 

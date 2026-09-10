@@ -17,6 +17,94 @@ if (menuToggle && siteNav) {
 
 const revealItems = document.querySelectorAll(".reveal");
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const hero = document.querySelector(".hero");
+const heroAvatarImages = document.querySelectorAll(".hero-avatar__image");
+const heroCopyLines = document.querySelectorAll(".hero__copy-line");
+const scrollIndicator = document.querySelector(".scroll-indicator");
+const scrollChevronIndicator = document.querySelector(".scroll-chevron-indicator");
+const heroCrossfadeWidth = 0.14;
+
+function clamp(value, min = 0, max = 1) {
+  return Math.min(max, Math.max(min, value));
+}
+
+function getHeroScrollProgress() {
+  const bounds = hero.getBoundingClientRect();
+  const scrollableDistance = Math.max(1, bounds.height - window.innerHeight);
+  return clamp(-bounds.top / scrollableDistance);
+}
+
+function getHeroStageOpacities(progress, stageCount) {
+  const opacities = Array(stageCount).fill(0);
+  const stageProgress = progress * (stageCount - 1);
+  const leftIndex = Math.min(stageCount - 2, Math.floor(stageProgress));
+  const localProgress = stageProgress - leftIndex;
+  const fadeStart = 0.5 - heroCrossfadeWidth / 2;
+  const fadeEnd = 0.5 + heroCrossfadeWidth / 2;
+
+  if (stageProgress >= stageCount - 1) {
+    opacities[stageCount - 1] = 1;
+  } else if (localProgress <= fadeStart) {
+    opacities[leftIndex] = 1;
+  } else if (localProgress >= fadeEnd) {
+    opacities[leftIndex + 1] = 1;
+  } else {
+    const fadeProgress = (localProgress - fadeStart) / heroCrossfadeWidth;
+    opacities[leftIndex] = 1 - fadeProgress;
+    opacities[leftIndex + 1] = fadeProgress;
+  }
+
+  return opacities;
+}
+
+function renderHeroAvatar() {
+  const progress = getHeroScrollProgress();
+  const avatarOpacities = getHeroStageOpacities(progress, heroAvatarImages.length);
+  const copyOpacities = getHeroStageOpacities(progress, heroCopyLines.length);
+
+  heroAvatarImages.forEach((image, index) => {
+    image.style.opacity = String(avatarOpacities[index]);
+  });
+
+  heroCopyLines.forEach((line, index) => {
+    line.style.opacity = String(copyOpacities[index]);
+  });
+}
+
+let heroAvatarFrameRequested = false;
+
+function requestHeroAvatarRender() {
+  if (heroAvatarFrameRequested) return;
+  heroAvatarFrameRequested = true;
+  window.requestAnimationFrame(() => {
+    heroAvatarFrameRequested = false;
+    renderHeroAvatar();
+  });
+}
+
+if (hero && heroAvatarImages.length && !reducedMotion) {
+  window.addEventListener("scroll", requestHeroAvatarRender, { passive: true });
+  window.addEventListener("resize", requestHeroAvatarRender);
+  requestHeroAvatarRender();
+}
+
+let scrollIndicatorFrameRequested = false;
+
+function requestScrollIndicatorRender() {
+  if (scrollIndicatorFrameRequested) return;
+  scrollIndicatorFrameRequested = true;
+  window.requestAnimationFrame(() => {
+    scrollIndicatorFrameRequested = false;
+    const isScrolled = window.scrollY > 8;
+    if (scrollIndicator) scrollIndicator.classList.toggle("is-hidden", isScrolled);
+    if (scrollChevronIndicator) scrollChevronIndicator.classList.toggle("is-hidden", isScrolled);
+  });
+}
+
+if (scrollIndicator || scrollChevronIndicator) {
+  window.addEventListener("scroll", requestScrollIndicatorRender, { passive: true });
+  requestScrollIndicatorRender();
+}
 
 if (reducedMotion || !("IntersectionObserver" in window)) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
@@ -43,10 +131,15 @@ const achievementsCamera = document.querySelector("#achievements-camera");
 const achievementArc = document.querySelector("#achievement-arc");
 const achievementFrames = document.querySelector("#achievement-frames");
 const achievementDetail = document.querySelector("#achievement-detail");
+const achievementDetailMark = document.querySelector("#achievement-detail-mark");
 const achievementDetailTitle = document.querySelector("#achievement-detail-title");
+const achievementDetailYear = document.querySelector("#achievement-detail-year");
 const achievementDetailResult = document.querySelector("#achievement-detail-result");
 const achievementDetailContext = document.querySelector("#achievement-detail-context");
+const achievementDetailEvent = document.querySelector("#achievement-detail-event");
 const achievementDetailDate = document.querySelector("#achievement-detail-date");
+const achievementDetailOrganization = document.querySelector("#achievement-detail-organization");
+const achievementDetailFrame = document.querySelector("#achievement-detail-frame");
 const achievementDetailSummary = document.querySelector("#achievement-detail-summary");
 
 const achievementData = [
@@ -56,10 +149,20 @@ const achievementData = [
     imageExtension: "jpg",
     focalFile: "focal_photo.jpg",
     title: "Code Relay Competition",
+    displayTitle: "Code Relay",
+    year: "2024",
+    mark: "01A",
     result: "Champion",
-    context: "ACM Org · Team M.J.P.T.B.",
-    date: "November 27, 2024",
+    context: "Team M.J.P.T.B.",
+    event: "ACM Org",
+    detailLine: "ACM Org",
+    organization: "ACM ORG",
+    frame: "FRAME 008",
+    date: "November 29, 2024",
+    dateLabel: "29 NOV 2024",
+    dateTime: "2024-11-29",
     summary: "",
+    focusLayout: { copyLeft: 8, copyBottom: 18, copyWidth: 140 },
     focalFrame: 2,
     frames: [
       { label: "Problem solving", src: "", alt: "Code Relay Competition problem-solving photo" },
@@ -73,10 +176,20 @@ const achievementData = [
     imageExtension: "jpg",
     focalFile: "focal_photo.jpg",
     title: "CodeKada 2025",
+    displayTitle: "CodeKada",
+    year: "2025",
+    mark: "02A",
     result: "Champion",
-    context: "Rekado Lens · Sci-Coders",
-    date: "November 8, 2025",
+    context: "Rekado Lens",
+    event: "Sci-Coders",
+    detailLine: "Sci-Coders",
+    organization: "SCI-CODERS",
+    frame: "FRAME 016",
+    date: "November 12, 2025",
+    dateLabel: "12 NOV 2025",
+    dateTime: "2025-11-12",
     summary: "",
+    focusLayout: { copyLeft: 8, copyBottom: 18, copyWidth: 150 },
     focalFrame: 5,
     frames: [
       { label: "Coding", src: "", alt: "CodeKada coding photo" },
@@ -93,10 +206,20 @@ const achievementData = [
     imageExtension: "jpg",
     focalFile: "focal_photo.jpg",
     title: "Hack-It-UP 2026",
+    displayTitle: "Hack-It-UP",
+    year: "2026",
+    mark: "03A",
     result: "Champion",
-    context: "AyudaPay Stellar · 48-Hour Hackathon",
+    context: "AyudaPay Stellar",
+    event: "48-Hour Hackathon",
+    detailLine: "UP SOCOMSCI",
+    organization: "UP SOCOMSCI",
+    frame: "FRAME 024",
     date: "May 16, 2026",
+    dateLabel: "16 MAY 2026",
+    dateTime: "2026-05-16",
     summary: "",
+    focusLayout: { copyLeft: 8, copyBottom: 18, copyWidth: 152 },
     focalFrame: 5,
     frames: [
       { label: "Building", src: "", alt: "Hack-It-UP building photo" },
@@ -116,6 +239,15 @@ const achievementFrameSpacing = 230;
 const achievementPathFocusRatio = 0.5;
 const achievementFocusTarget = { x: 800, y: 500 };
 const achievementMaxZoom = 3.45;
+const achievementFocusLayerWidth = 220;
+const achievementFocusLayerHeight = 154;
+const achievementXhtmlNamespace = "http://www.w3.org/1999/xhtml";
+/*
+ * Deferred visual experiment: keep the SVG/foreignObject focus composition in
+ * the codebase, but use the proven external detail treatment for now. Flip
+ * this to true when we revisit the integrated frame layout.
+ */
+const achievementIntegratedFocusLayerEnabled = false;
 const achievementFramePadding = 130;
 const achievementStages = [
   { travelStart: 0.08, travelEnd: 0.18, zoomStart: 0.2, focusStart: 0.27, focusEnd: 0.32, zoomEnd: 0.36 },
@@ -138,20 +270,91 @@ function achievementEase(amount) {
   return clamped * clamped * (3 - 2 * clamped);
 }
 
+function getAchievementMaxZoom() {
+  const svgScale = Math.max(window.innerWidth / 1600, window.innerHeight / 1000);
+  const widthAvailableInViewBox = window.innerWidth / svgScale;
+  const widthFitZoom = (widthAvailableInViewBox - 26) / achievementFrameWidth;
+  return Math.min(achievementMaxZoom, Math.max(1.25, widthFitZoom));
+}
+
 function getAchievementImageSource(achievement, frame, frameIndex) {
   if (frame.src) return frame.src;
   if (frameIndex === achievement.focalFrame) return `${achievement.folder}/${achievement.focalFile}`;
   return `${achievement.folder}/photo_${frameIndex + 1}.${achievement.imageExtension}`;
 }
 
+function createAchievementFocusLayer(achievement) {
+  const layer = createAchievementSvgElement("foreignObject", {
+    class: `achievement-focus-layer achievement-focus-layer--${achievement.slug}`,
+    x: -achievementFocusLayerWidth / 2,
+    y: -achievementFocusLayerHeight / 2,
+    width: achievementFocusLayerWidth,
+    height: achievementFocusLayerHeight,
+    "aria-hidden": "true",
+  });
+  const content = document.createElementNS(achievementXhtmlNamespace, "div");
+  content.setAttribute("class", "achievement-focus-layer__content");
+  content.style.setProperty("--focus-copy-left", `${achievement.focusLayout?.copyLeft ?? 8}px`);
+  content.style.setProperty("--focus-copy-bottom", `${achievement.focusLayout?.copyBottom ?? 18}px`);
+  content.style.setProperty("--focus-copy-width", `${achievement.focusLayout?.copyWidth ?? 148}px`);
+
+  const topMeta = document.createElementNS(achievementXhtmlNamespace, "div");
+  topMeta.setAttribute("class", "achievement-focus-layer__meta achievement-focus-layer__meta--top");
+  const mark = document.createElementNS(achievementXhtmlNamespace, "span");
+  mark.setAttribute("class", "achievement-focus-layer__mark");
+  mark.textContent = achievement.mark;
+  const date = document.createElementNS(achievementXhtmlNamespace, "time");
+  date.setAttribute("datetime", achievement.dateTime);
+  date.textContent = achievement.dateLabel;
+  topMeta.append(mark, date);
+
+  const copy = document.createElementNS(achievementXhtmlNamespace, "div");
+  copy.setAttribute("class", "achievement-focus-layer__copy");
+  const title = document.createElementNS(achievementXhtmlNamespace, "h3");
+  title.textContent = achievement.displayTitle.toUpperCase();
+  const year = document.createElementNS(achievementXhtmlNamespace, "p");
+  year.setAttribute("class", "achievement-focus-layer__year");
+  year.textContent = achievement.year;
+  const result = document.createElementNS(achievementXhtmlNamespace, "p");
+  result.setAttribute("class", "achievement-focus-layer__result");
+  result.textContent = achievement.result.toUpperCase();
+  const context = document.createElementNS(achievementXhtmlNamespace, "p");
+  context.setAttribute("class", "achievement-focus-layer__context");
+  context.textContent = achievement.context;
+  const event = document.createElementNS(achievementXhtmlNamespace, "p");
+  event.setAttribute("class", "achievement-focus-layer__event");
+  event.textContent = achievement.event;
+  copy.append(title, year, result, context, event);
+
+  const bottomMeta = document.createElementNS(achievementXhtmlNamespace, "div");
+  bottomMeta.setAttribute("class", "achievement-focus-layer__meta achievement-focus-layer__meta--bottom");
+  const organization = document.createElementNS(achievementXhtmlNamespace, "span");
+  organization.textContent = achievement.organization;
+  const frame = document.createElementNS(achievementXhtmlNamespace, "span");
+  frame.textContent = achievement.frame;
+  bottomMeta.append(organization, frame);
+
+  content.append(topMeta, copy, bottomMeta);
+  layer.append(content);
+  return layer;
+}
+
 function buildAchievementFrame(slot, eventIndex, frameIndex, globalIndex, totalFrames) {
+  const achievement = achievementData[eventIndex];
   const group = createAchievementSvgElement("g", {
-    class: "achievement-frame",
+    class: `achievement-frame achievement-frame--${achievement.slug}`,
     "data-event": eventIndex,
     "data-frame": frameIndex,
   });
   const shell = createAchievementSvgElement("rect", {
     class: "achievement-frame__shell",
+    x: -achievementFrameWidth / 2,
+    y: -achievementFrameHeight / 2,
+    width: achievementFrameWidth,
+    height: achievementFrameHeight,
+  });
+  const grain = createAchievementSvgElement("rect", {
+    class: "achievement-frame__grain",
     x: -achievementFrameWidth / 2,
     y: -achievementFrameHeight / 2,
     width: achievementFrameWidth,
@@ -171,7 +374,7 @@ function buildAchievementFrame(slot, eventIndex, frameIndex, globalIndex, totalF
   });
   placeholder.textContent = slot.label.toUpperCase();
 
-  group.append(shell, window, placeholder);
+  group.append(shell, grain, window, placeholder);
 
   if (slot.src) {
     const image = createAchievementSvgElement("image", {
@@ -187,6 +390,18 @@ function buildAchievementFrame(slot, eventIndex, frameIndex, globalIndex, totalF
     image.addEventListener("error", () => image.remove());
     group.append(image);
   }
+
+  const windowBorder = createAchievementSvgElement("rect", {
+    class: "achievement-frame__window-border",
+    x: -96,
+    y: -58,
+    width: 192,
+    height: 112,
+  });
+  group.append(windowBorder);
+
+  const focusLayer = frameIndex === achievement.focalFrame ? createAchievementFocusLayer(achievement) : null;
+  if (focusLayer) group.append(focusLayer);
 
   [-1, 1].forEach((side) => {
     for (let index = 0; index < 4; index += 1) {
@@ -205,7 +420,8 @@ function buildAchievementFrame(slot, eventIndex, frameIndex, globalIndex, totalF
     group,
     eventIndex,
     frameIndex,
-    isFocal: frameIndex === achievementData[eventIndex].focalFrame,
+    isFocal: frameIndex === achievement.focalFrame,
+    focusLayer,
     baseDistance: (totalFrames - 1 - globalIndex) * achievementFrameSpacing,
   };
 }
@@ -328,12 +544,21 @@ if (
     if (index < 0 || index === achievementCurrentDetail) return;
     achievementCurrentDetail = index;
     const achievement = achievementData[index];
-    achievementDetailTitle.textContent = achievement.title;
-    achievementDetailResult.textContent = achievement.result;
-    achievementDetailContext.textContent = achievement.context;
-    achievementDetailDate.textContent = achievement.date;
-    achievementDetailSummary.textContent = achievement.summary;
-    achievementDetailSummary.hidden = !achievement.summary;
+    const setDetailText = (element, value) => {
+      if (element) element.textContent = value;
+    };
+    setDetailText(achievementDetailMark, achievement.mark);
+    setDetailText(achievementDetailTitle, achievement.displayTitle);
+    setDetailText(achievementDetailYear, achievement.year);
+    setDetailText(achievementDetailResult, achievement.result.toUpperCase());
+    setDetailText(achievementDetailContext, achievement.detailLine);
+    setDetailText(achievementDetailEvent, achievement.event);
+    setDetailText(achievementDetailDate, achievement.date);
+    if (achievementDetailDate) achievementDetailDate.setAttribute("datetime", achievement.dateTime);
+    setDetailText(achievementDetailOrganization, achievement.organization);
+    setDetailText(achievementDetailFrame, achievement.frame);
+    setDetailText(achievementDetailSummary, achievement.summary);
+    if (achievementDetailSummary) achievementDetailSummary.hidden = !achievement.summary;
   }
 
   function updateAchievementFrames(offset, focusIndex, focusAmount) {
@@ -351,10 +576,12 @@ if (
       const tangentDistance = pathDistance < achievementTrackLength - 1 ? pathDistance + 1 : pathDistance - 1;
       const tangentPoint = achievementArc.getPointAtLength(Math.max(0, tangentDistance));
       const angle = Math.atan2(tangentPoint.y - point.y, tangentPoint.x - point.x) * (180 / Math.PI);
+      const isFocusTarget = node.eventIndex === focusIndex && node.isFocal;
+      const focusScale = isFocusTarget ? achievementLerp(1, 1.02, focusAmount) : 1;
 
       node.group.removeAttribute("display");
-      node.group.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle})`);
-      node.group.classList.toggle("is-focus-target", node.eventIndex === focusIndex && node.isFocal);
+      node.group.setAttribute("transform", `translate(${point.x} ${point.y}) rotate(${angle}) scale(${focusScale})`);
+      node.group.classList.toggle("is-focus-target", isFocusTarget);
       node.group.classList.toggle("is-focal", node.isFocal);
     });
 
@@ -367,10 +594,20 @@ if (
       return;
     }
 
-    const scale = achievementLerp(1, achievementMaxZoom, focusAmount);
+    const scale = achievementLerp(1, getAchievementMaxZoom(), focusAmount);
     const translateX = focusAmount * achievementFocusTarget.x * (1 - scale);
     const translateY = focusAmount * achievementFocusTarget.y * (1 - scale);
     achievementsCamera.setAttribute("transform", `translate(${translateX} ${translateY}) scale(${scale})`);
+  }
+
+  function updateAchievementFocusLayer(focusIndex, detailAmount) {
+    if (!achievementIntegratedFocusLayerEnabled) return;
+    achievementFrameNodes.forEach((node) => {
+      if (!node.focusLayer) return;
+      const isActive = node.eventIndex === focusIndex && node.isFocal;
+      node.focusLayer.style.opacity = isActive ? String(detailAmount) : "0";
+      node.focusLayer.classList.toggle("is-active", isActive && detailAmount > 0.01);
+    });
   }
 
   function renderAchievements(progress) {
@@ -392,10 +629,17 @@ if (
     updateAchievementCamera(focusState.amount);
 
     if (focusState.index >= 0) updateAchievementDetail(focusState.index);
-    const detailAmount = focusState.amount;
-    achievementDetail.style.opacity = String(detailAmount);
+    const focusStage = focusState.index >= 0 ? achievementStages[focusState.index] : null;
+    const isEnteringOrHolding = focusStage && progress <= focusStage.focusEnd;
+    const detailAmount = isEnteringOrHolding && focusState.amount > 0.58
+      ? achievementEase((focusState.amount - 0.58) / 0.42)
+      : 0;
+    const isLeavingFocus = focusStage && progress > focusStage.focusEnd && progress <= focusStage.zoomEnd;
+    achievementDetail.style.transition = isLeavingFocus ? "none" : "";
+    achievementDetail.style.opacity = achievementIntegratedFocusLayerEnabled ? "0" : String(detailAmount);
     achievementDetail.style.transform = `translate(-50%, ${(1 - detailAmount) * 14}px)`;
     achievementDetail.setAttribute("aria-hidden", String(detailAmount < 0.2));
+    updateAchievementFocusLayer(focusState.index, detailAmount);
   }
 
   function requestAchievementRender() {
@@ -419,6 +663,46 @@ if (
       window.addEventListener("resize", requestAchievementRender);
       requestAchievementRender();
     }
+  }
+}
+
+const skillsSection = document.querySelector(".skills-section");
+const skillsScroll = document.querySelector(".skills-scroll");
+const skillCards = [...document.querySelectorAll(".skill-card")];
+
+if (skillsSection && skillsScroll && skillCards.length) {
+  let skillsFrameRequested = false;
+
+  function getSkillsProgress() {
+    const bounds = skillsScroll.getBoundingClientRect();
+    const scrollableDistance = Math.max(1, bounds.height - window.innerHeight);
+    return Math.min(1, Math.max(0, -bounds.top / scrollableDistance));
+  }
+
+  function renderSkills() {
+    skillsFrameRequested = false;
+    const progress = getSkillsProgress();
+    const entrance = Math.min(1, Math.max(0, progress / 0.34));
+    const easedEntrance = entrance * entrance * (3 - 2 * entrance);
+
+    skillCards.forEach((card, index) => {
+      const delay = index * 0.08;
+      const cardEntrance = Math.min(1, Math.max(0, (easedEntrance - delay) / (1 - delay)));
+      card.style.setProperty("--skill-progress", String(cardEntrance));
+    });
+  }
+
+  function requestSkillsRender() {
+    if (skillsFrameRequested) return;
+    skillsFrameRequested = true;
+    window.requestAnimationFrame(renderSkills);
+  }
+
+  if (!reducedMotion) {
+    skillsSection.classList.add("is-enhanced");
+    window.addEventListener("scroll", requestSkillsRender, { passive: true });
+    window.addEventListener("resize", requestSkillsRender);
+    requestSkillsRender();
   }
 }
 

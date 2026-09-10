@@ -4,6 +4,8 @@
 
 Approved design for refining the focused achievement state inside the existing homepage Wins film sequence. This refinement changes only the focused-frame composition; it does not change the semicircular film path, scroll timeline, travel behavior, neighboring frames, or `/projects/`.
 
+The integrated SVG/`foreignObject` treatment is intentionally deferred for now. The implementation remains in `script.js` and `styles.css` behind `achievementIntegratedFocusLayerEnabled = false`, while the active presentation uses the earlier centered floating detail box. This keeps the experiment available for a future pass without exposing its current overflow issues.
+
 ## Goal
 
 Make a focused achievement feel like one cohesive editorial film frame rather than a photograph paired with a separate caption. The winning image, black film material, sprocket holes, typography, and technical metadata should remain part of the same camera-transformed composition.

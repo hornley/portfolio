@@ -32,21 +32,31 @@
       </header>
 
       <main>
-        <section class="hero" aria-labelledby="hero-title">
-          <div class="hero__main reveal">
-            <p class="eyebrow">Software Developer</p>
-            <h1 id="hero-title">Selected work,<br /><em>made useful.</em></h1>
-            <p class="hero__intro">Finished software projects and award-winning builds.</p>
-            <a class="text-link text-link--accent" href="#work">
-              <span>View selected work</span>
-              <span aria-hidden="true">↘</span>
-            </a>
-          </div>
-
-          <div class="hero__aside reveal reveal--delay-1" aria-label="Portfolio overview">
-            <span>Portfolio / 2026</span>
-            <span>04 projects</span>
-            <span>02 wins</span>
+        <section class="hero" aria-label="Profile">
+          <div class="hero__sticky">
+            <div class="hero__copy reveal">
+              <p class="hero__copy-line hero__copy-line--active">Hi!</p>
+              <p class="hero__copy-line">Welcome to my portfolio</p>
+              <p class="hero__copy-line">I'm Harley Albert Buendia</p>
+              <p class="hero__copy-line">I like building software solutions</p>
+              <p class="hero__copy-line">that turn ideas into something useful.</p>
+            </div>
+            <div class="hero-avatar reveal reveal--delay-1" aria-hidden="true">
+              <img class="hero-avatar__image hero-avatar__image--silhouette" src="avatars/silhouette.png" alt="" />
+              <img class="hero-avatar__image" src="avatars/drawn.png" alt="" />
+              <img class="hero-avatar__image" src="avatars/colorless.png" alt="" />
+              <img class="hero-avatar__image" src="avatars/glitched.png" alt="" />
+              <img class="hero-avatar__image" src="avatars/clean.png" alt="" />
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">
+              <span class="scroll-indicator__mouse">
+                <span class="scroll-indicator__dot"></span>
+              </span>
+            </div>
+            <div class="scroll-chevron-indicator" aria-hidden="true">
+              <span class="scroll-chevron-indicator__arrow"></span>
+              <span class="scroll-chevron-indicator__arrow"></span>
+            </div>
           </div>
         </section>
 
@@ -166,6 +176,14 @@
                 >
                   <defs>
                     <path id="achievement-arc" d="M -60 1360 A 860 860 0 0 1 1660 1360" fill="none" />
+                    <pattern id="achievement-film-grain" width="72" height="72" patternUnits="userSpaceOnUse">
+                      <circle cx="8" cy="12" r="0.8" fill="#fff" />
+                      <circle cx="26" cy="31" r="0.55" fill="#fff" />
+                      <circle cx="51" cy="18" r="0.7" fill="#fff" />
+                      <circle cx="64" cy="55" r="0.6" fill="#fff" />
+                      <circle cx="15" cy="61" r="0.45" fill="#fff" />
+                      <circle cx="43" cy="68" r="0.75" fill="#fff" />
+                    </pattern>
                   </defs>
 
                   <g id="achievements-camera">
@@ -177,10 +195,10 @@
               </div>
 
               <article class="achievement-detail" id="achievement-detail" aria-live="polite" aria-atomic="true" aria-hidden="true">
-                <h3 id="achievement-detail-title">Code Relay Competition</h3>
-                <p class="achievement-detail__result" id="achievement-detail-result">Champion</p>
-                <p class="achievement-detail__context" id="achievement-detail-context">ACM Org · Team M.J.P.T.B.</p>
-                <p class="achievement-detail__date" id="achievement-detail-date">November 27, 2024</p>
+                <h3 id="achievement-detail-title">CODE RELAY</h3>
+                <p class="achievement-detail__result" id="achievement-detail-result">CHAMPION</p>
+                <p class="achievement-detail__context" id="achievement-detail-context">ACM Org</p>
+                <time class="achievement-detail__date" id="achievement-detail-date" datetime="2024-11-29">November 29, 2024</time>
                 <p class="achievement-detail__summary" id="achievement-detail-summary" hidden></p>
               </article>
 
@@ -189,14 +207,14 @@
                   <div>
                     <h3>Code Relay Competition</h3>
                     <p>Champion · ACM Org · Team M.J.P.T.B.</p>
-                    <time datetime="2024-11-27">November 27, 2024</time>
+                    <time datetime="2024-11-29">November 29, 2024</time>
                   </div>
                 </li>
                 <li>
                   <div>
                     <h3>CodeKada 2025</h3>
                     <p>Champion · Rekado Lens · Sci-Coders</p>
-                    <time datetime="2025-11-08">November 8, 2025</time>
+                    <time datetime="2025-11-12">November 12, 2025</time>
                   </div>
                 </li>
                 <li>
@@ -211,21 +229,54 @@
           </div>
         </section>
 
-        <section class="skills-section section" id="skills" aria-labelledby="skills-title">
-          <div class="section-heading reveal">
-            <p class="eyebrow">03 / Skills</p>
-            <h2 id="skills-title">What I work with.</h2>
-          </div>
+        <section class="skills-section" id="skills" aria-label="Skills">
+          <div class="skills-scroll">
+            <div class="skills-sticky">
+              <div class="skills-grid">
+                <article class="skill-card skill-card--build">
+                  <p class="skill-card__index">01 / <span>Build</span></p>
+                  <h3><span>Software</span><span>Development</span></h3>
+                  <p class="skill-card__capabilities">Full-stack <span aria-hidden="true">•</span> APIs <span aria-hidden="true">•</span> Databases <span aria-hidden="true">•</span> Software Architecture</p>
+                  <ul class="skill-card__tech" aria-label="Build technologies">
+                    <li>Python</li>
+                    <li>TypeScript</li>
+                    <li>React</li>
+                    <li>FastAPI</li>
+                    <li>Flask</li>
+                    <li>PostgreSQL</li>
+                    <li>SQLite</li>
+                  </ul>
+                </article>
 
-          <div class="skills-grid reveal">
-            <span>Software development</span>
-            <span>Full-stack web applications</span>
-            <span>AI-assisted development</span>
-            <span>Artificial intelligence</span>
-            <span>Machine learning</span>
-            <span>Computer vision</span>
-            <span>Database-backed applications</span>
-            <span>Blockchain integrations</span>
+                <article class="skill-card skill-card--intelligence">
+                  <p class="skill-card__index">02 / <span>Intelligence</span></p>
+                  <h3><span>AI / ML</span><span>Computer Vision</span></h3>
+                  <p class="skill-card__capabilities">AI <span aria-hidden="true">•</span> Machine Learning <span aria-hidden="true">•</span> Computer Vision <span aria-hidden="true">•</span> AI Agents</p>
+                  <ul class="skill-card__tech" aria-label="Intelligence technologies">
+                    <li>PyTorch</li>
+                    <li>OpenCV</li>
+                    <li>YOLO</li>
+                    <li>LLMs</li>
+                    <li>RAG</li>
+                    <li>Agent Systems</li>
+                  </ul>
+                </article>
+
+                <article class="skill-card skill-card--systems">
+                  <p class="skill-card__index">03 / <span>Systems</span></p>
+                  <h3><span>Infrastructure</span><span>Automation</span></h3>
+                  <p class="skill-card__capabilities">Infrastructure <span aria-hidden="true">•</span> Automation <span aria-hidden="true">•</span> Networking <span aria-hidden="true">•</span> Self-hosting</p>
+                  <ul class="skill-card__tech" aria-label="Systems technologies">
+                    <li>Linux</li>
+                    <li>Docker</li>
+                    <li>Tailscale</li>
+                    <li>Ollama</li>
+                    <li>MCP</li>
+                    <li>Homelab</li>
+                  </ul>
+                </article>
+              </div>
+            </div>
           </div>
         </section>
       </main>
