@@ -24,7 +24,7 @@
         </button>
 
         <nav class="site-nav" id="site-nav" aria-label="Main navigation">
-          <a href="/projects/">Work</a>
+          <a href="#work">Work</a>
           <a href="#wins">Wins</a>
           <a href="#skills">Skills</a>
           <a href="#contact">Contact</a>
@@ -50,113 +50,164 @@
           </div>
         </section>
 
-        <section class="work-section section" id="work" aria-labelledby="work-title">
-          <div class="section-heading reveal">
-            <p class="eyebrow">01 / Selected work</p>
-            <h2 id="work-title">Things I've made.</h2>
+        <section class="projects-race" id="work" aria-label="Scroll-driven selected projects">
+          <div class="projects-race__sticky">
+            <div class="track-stage" aria-hidden="true">
+              <div class="ghost-number" id="ghost-number">01</div>
+
+              <svg class="track-map" viewBox="0 0 1000 620" role="img" aria-label="Stylized Suzuka-inspired racing circuit" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+                  <path
+                    id="track-path"
+                    d="M 700 500 L 865 500 C 918 500 948 469 948 423 C 948 378 920 350 875 350 L 770 350 C 716 350 688 319 688 275 C 688 224 719 180 776 170 L 899 145 C 939 137 955 104 930 78 C 902 49 856 64 824 90 L 700 184 C 660 215 625 210 600 180 C 560 131 502 96 440 111 C 376 126 340 187 365 240 C 390 291 449 305 490 276 C 525 251 550 262 562 298 C 584 361 550 420 490 435 C 421 450 350 411 340 350 C 330 290 360 245 330 210 C 299 171 245 164 210 196 C 152 248 184 310 225 345 C 275 389 286 449 240 495 C 210 525 180 549 226 571 C 280 597 360 566 405 526 C 450 485 500 491 555 511 L 700 560 C 723 568 732 538 700 500"
+                    fill="none"
+                  />
+                </defs>
+                <use class="track-path track-path--border" href="#track-path" xlink:href="#track-path" />
+                <use class="track-path track-path--edge" href="#track-path" xlink:href="#track-path" />
+                <use class="track-path track-path--asphalt" href="#track-path" xlink:href="#track-path" />
+                <use class="track-path track-path--completed" id="track-completed" href="#track-path" xlink:href="#track-path" />
+
+                <g class="checkpoints" id="checkpoints">
+                  <g class="checkpoint" data-progress="0.14" data-index="0">
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">01</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.38" data-index="1">
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">02</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.62" data-index="2">
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">03</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.84" data-index="3">
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">04</text>
+                  </g>
+                </g>
+
+                <g class="race-car" id="race-car">
+                  <image href="projects/suzuka_max_car.png" x="-62" y="-31" width="124" height="62" preserveAspectRatio="none" />
+                </g>
+              </svg>
+            </div>
+
+            <article class="project-panel" id="project-panel" data-project="zeni" aria-live="polite" aria-atomic="true">
+              <div class="project-panel__content" id="project-content">
+                <div class="project-artwork" id="project-artwork" data-project="zeni">
+                  <div class="project-artwork__variant project-artwork__variant--zeni">
+                    <span class="artwork-word">ZENI</span>
+                    <span class="artwork-orbit artwork-orbit--one"></span>
+                    <span class="artwork-orbit artwork-orbit--two"></span>
+                    <span class="artwork-corner">01</span>
+                  </div>
+                  <div class="project-artwork__variant project-artwork__variant--kairo">
+                    <span class="artwork-word">KAIRO</span>
+                    <span class="artwork-block artwork-block--one"></span>
+                    <span class="artwork-block artwork-block--two"></span>
+                    <span class="artwork-block artwork-block--three"></span>
+                    <span class="artwork-corner">02</span>
+                  </div>
+                  <div class="project-artwork__variant project-artwork__variant--ayudapay">
+                    <span class="artwork-word">AYUDA<br />PAY</span>
+                    <span class="artwork-card artwork-card--one">₱ <small>ASSISTANCE</small></span>
+                    <span class="artwork-card artwork-card--two">✓ <small>VERIFIED</small></span>
+                    <span class="artwork-corner">03</span>
+                  </div>
+                  <div class="project-artwork__variant project-artwork__variant--sulat">
+                    <span class="artwork-word artwork-word--baybayin">ᜊᜌᜊᜌᜒᜈ᜔</span>
+                    <span class="artwork-grid"></span>
+                    <span class="artwork-stroke artwork-stroke--one"></span>
+                    <span class="artwork-stroke artwork-stroke--two"></span>
+                    <span class="artwork-corner">04</span>
+                  </div>
+                </div>
+                <div class="project-panel__copy">
+                  <p class="project-panel__number" id="panel-number">01</p>
+                  <h2 id="panel-title">Zeni</h2>
+                  <p class="project-panel__award" id="panel-award"></p>
+                  <p class="project-panel__category" id="panel-category">Software / Product</p>
+                  <p class="project-panel__description" id="panel-description">A project from the selected work lineup.</p>
+                  <div class="project-panel__action" id="panel-action">
+                    <span class="project-panel__muted">Project link to be added</span>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
 
-          <div class="project-list">
-            <article class="project-row reveal" data-project="zeni">
-              <div class="project-info">
-                <span class="project-number">01</span>
-                <div class="project-copy">
-                  <h3>Zeni</h3>
-                  <p class="project-category">Software / Product</p>
-                  <p class="project-note">Project details and link will be added here.</p>
-                </div>
-              </div>
-              <div class="project-preview project-preview--zeni" aria-label="Abstract Zeni project preview">
-                <span class="preview-word">ZENI</span>
-                <span class="preview-corner">01</span>
-                <span class="preview-orbit preview-orbit--one"></span>
-                <span class="preview-orbit preview-orbit--two"></span>
-              </div>
-              <span class="project-link project-link--muted">GitHub coming soon <span aria-hidden="true">↗</span></span>
-            </article>
-
-            <article class="project-row reveal" data-project="kairo">
-              <div class="project-info">
-                <span class="project-number">02</span>
-                <div class="project-copy">
-                  <h3>Kairo</h3>
-                  <p class="project-category">Software / Product</p>
-                  <p class="project-note">Project details and link will be added here.</p>
-                </div>
-              </div>
-              <div class="project-preview project-preview--kairo" aria-label="Abstract Kairo project preview">
-                <span class="preview-word">KAIRO</span>
-                <span class="preview-corner">02</span>
-                <span class="preview-block preview-block--one"></span>
-                <span class="preview-block preview-block--two"></span>
-                <span class="preview-block preview-block--three"></span>
-              </div>
-              <span class="project-link project-link--muted">GitHub coming soon <span aria-hidden="true">↗</span></span>
-            </article>
-
-            <article class="project-row reveal" data-project="ayudapay">
-              <div class="project-info">
-                <span class="project-number">03</span>
-                <div class="project-copy">
-                  <h3>AyudaPay</h3>
-                  <p class="project-award">🏆 Champion — Hack-it-UP 2026 · UP SoComSci</p>
-                  <p class="project-category">FinTech / Blockchain / AI</p>
-                  <p class="project-description">A blockchain-enabled aid distribution system designed for transparent and instant financial assistance.</p>
-                </div>
-              </div>
-              <div class="project-preview project-preview--ayudapay" aria-label="Abstract AyudaPay project preview">
-                <span class="preview-word">AYUDA<br />PAY</span>
-                <span class="preview-corner">03</span>
-                <span class="preview-card preview-card--one"><b>₱</b><span>ASSISTANCE</span></span>
-                <span class="preview-card preview-card--two"><b>✓</b><span>VERIFIED</span></span>
-              </div>
-              <span class="project-link project-link--muted">GitHub link to be added <span aria-hidden="true">↗</span></span>
-            </article>
-
-            <article class="project-row reveal" data-project="sulatbaybayin">
-              <div class="project-info">
-                <span class="project-number">04</span>
-                <div class="project-copy">
-                  <h3>SulatBaybayin</h3>
-                  <p class="project-category">Computer Vision / OCR</p>
-                  <p class="project-description">A Baybayin detection and recognition system that turns handwritten script into assembled text.</p>
-                </div>
-              </div>
-              <div class="project-preview project-preview--sulat" aria-label="Abstract SulatBaybayin project preview">
-                <span class="preview-word preview-word--baybayin">ᜊᜌᜊᜌᜒᜈ᜔</span>
-                <span class="preview-corner">04</span>
-                <span class="preview-grid"></span>
-                <span class="preview-stroke preview-stroke--one"></span>
-                <span class="preview-stroke preview-stroke--two"></span>
-              </div>
-              <span class="project-link project-link--muted">GitHub link to be added <span aria-hidden="true">↗</span></span>
-            </article>
+          <div class="projects-fallback" aria-label="Project list fallback">
+            <h2>Selected projects</h2>
+            <ol>
+              <li>Zeni — Software / Product</li>
+              <li>Kairo — Software / Product</li>
+              <li>AyudaPay — FinTech / Blockchain / AI — Champion, Hack-it-UP 2026</li>
+              <li>SulatBaybayin — Computer Vision / OCR</li>
+            </ol>
           </div>
         </section>
 
-        <section class="wins-section section" id="wins" aria-labelledby="wins-title">
-          <div class="section-heading reveal">
-            <p class="eyebrow">02 / Wins</p>
-            <h2 id="wins-title">Built to compete.</h2>
-          </div>
+        <section class="achievements-section" id="wins" aria-labelledby="wins-title">
+          <div class="achievements-scroll">
+            <div class="achievements-sticky">
+              <div class="achievements-intro" id="achievements-intro">
+                <h2 id="wins-title">Achievements</h2>
+              </div>
 
-          <div class="wins-list">
-            <article class="win-row reveal">
-              <span class="win-year">2025</span>
-              <div class="win-main">
-                <h3>CodeKada</h3>
-                <p>Champion — DevKada Community</p>
+              <div class="achievements-film-viewport" aria-hidden="true">
+                <svg
+                  class="achievements-film"
+                  id="achievements-film"
+                  viewBox="0 0 1600 1000"
+                  preserveAspectRatio="xMidYMid slice"
+                  role="presentation"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <path id="achievement-arc" d="M -60 1360 A 860 860 0 0 1 1660 1360" fill="none" />
+                  </defs>
+
+                  <g id="achievements-camera">
+                    <use class="achievement-ribbon achievement-ribbon--outer" href="#achievement-arc" />
+                    <use class="achievement-ribbon achievement-ribbon--inner" href="#achievement-arc" />
+                    <g class="achievement-frames" id="achievement-frames"></g>
+                  </g>
+                </svg>
               </div>
-              <p class="win-project">Rekado Lens</p>
-            </article>
-            <article class="win-row reveal">
-              <span class="win-year">2026</span>
-              <div class="win-main">
-                <h3>Hack-it-UP</h3>
-                <p>Champion — UP Society of Computer Scientists</p>
-              </div>
-              <p class="win-project">AyudaPay</p>
-            </article>
+
+              <article class="achievement-detail" id="achievement-detail" aria-live="polite" aria-atomic="true" aria-hidden="true">
+                <h3 id="achievement-detail-title">Code Relay Competition</h3>
+                <p class="achievement-detail__result" id="achievement-detail-result">Champion</p>
+                <p class="achievement-detail__context" id="achievement-detail-context">ACM Org · Team M.J.P.T.B.</p>
+                <p class="achievement-detail__date" id="achievement-detail-date">November 27, 2024</p>
+                <p class="achievement-detail__summary" id="achievement-detail-summary" hidden></p>
+              </article>
+
+              <ol class="achievements-fallback" aria-label="Achievements list">
+                <li>
+                  <div>
+                    <h3>Code Relay Competition</h3>
+                    <p>Champion · ACM Org · Team M.J.P.T.B.</p>
+                    <time datetime="2024-11-27">November 27, 2024</time>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>CodeKada 2025</h3>
+                    <p>Champion · Rekado Lens · Sci-Coders</p>
+                    <time datetime="2025-11-08">November 8, 2025</time>
+                  </div>
+                </li>
+                <li>
+                  <div>
+                    <h3>Hack-It-UP 2026</h3>
+                    <p>Champion · AyudaPay Stellar · 48-Hour Hackathon</p>
+                    <time datetime="2026-05-16">May 16, 2026</time>
+                  </div>
+                </li>
+              </ol>
+            </div>
           </div>
         </section>
 

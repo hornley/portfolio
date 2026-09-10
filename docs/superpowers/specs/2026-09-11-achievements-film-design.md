@@ -86,7 +86,7 @@ achievements/codekada/
 achievements/hack-it-up/
 ```
 
-Each event can contain four to six supporting frames and one designated focal/winning frame. The number of frames is independent of the number of achievements. The CodeKada and Hack-It-UP sequences may therefore occupy several consecutive frames, while ACM-Comp can use the same structure.
+Each event uses a data-defined total frame count, including one designated focal/winning frame. The approved initial counts are three frames for ACM-Comp, six for CodeKada, and six for Hack-It-UP. Supporting images are ordered as `photo_1.jpeg`, `photo_2.jpeg`, and so on. The focal filename is `focal_photo.jpeg` for ACM-Comp and Hack-It-UP, and `focal_photo.png` for CodeKada. The number of frames is independent of the number of achievements, so each event can still be expanded later without changing the scroll architecture.
 
 The detail model supports an optional one-sentence summary. No unsupported summary text should be invented when the supplied achievement information does not include one.
 
