@@ -18,7 +18,8 @@ The route should feel like an editorial portfolio using an F1 lap as navigation,
 - Continuous scroll-driven car motion along the existing SVG path.
 - Cobalt completed-track trail.
 - Checkpoint-driven project switching.
-- Mobile stacked track and project composition.
+- Responsive track/project composition with the track stage using the full available width.
+- Mobile track-above-card composition.
 - Lap-complete ending state.
 - Temporary abstract artwork until real project screenshots are provided.
 
@@ -30,22 +31,30 @@ This is a hard invariant: the endpoint of the blue trail must coincide with the 
 
 Verify the invariant at 0%, 10%, 25%, 50%, 75%, 90%, and 100% on desktop and mobile, including after resize. At 0% the trail is invisible; at 100% the entire circuit is blue.
 
-## Composition pass
+## Track-stage width
 
-The race viewport and track stage become full-viewport elements rather than being constrained by the centered page container. The sticky race layer uses the full browser width, while the project panel keeps a comfortable left margin and occupies substantially more of the left side.
+The `.track-stage` container must no longer be constrained to the narrower content width used in the current draft. It should expand to use the full available viewport width within the page's outer margins. The sticky race layer and track canvas must not be sized by the project-card column.
 
-The current circuit scale and overall right-side composition are preserved. The larger stage gives the circuit room to render without being clipped by the page container; it should remain visually dominant and recognizable, with only the existing intentional edge bleed.
+This is required so more of the Suzuka circuit remains visible, the circuit is not clipped by an unnecessarily narrow wrapper, the left project card can grow without forcing the track offscreen, and the full desktop width can be used for the project-card-plus-circuit composition. Responsive resizing must change presentation only, not the normalized path progress or motion-path source.
 
-The project panel is a flat editorial block with no rounded corners, floating shadow, glass effect, or dashboard chrome. Its internal order is:
+The current circuit scale and overall right-side composition are preserved. The larger stage should allow most of the Suzuka circuit to remain visible without shrinking it excessively. Cropping must be minimal and intentional, caused by the viewport composition rather than by a too-narrow track-stage wrapper.
+
+## Project panel composition
+
+The active project panel should occupy a substantially larger portion of the left side of the viewport, with comfortable outer margins so it feels editorial rather than boxed-in. It should read as the primary featured project card, not a small metadata panel.
+
+The project panel remains a flat editorial block with no rounded corners, floating shadow, glass effect, or dashboard chrome. Its internal order is:
 
 ```text
 large project artwork / preview
-centered project title
+left-aligned project title
 award line, when applicable
 category
 short description
-project link
+project link / directional CTA
 ```
+
+The image preview is the dominant visual element and uses most of the card width. The image may be centered or full-width within its slot, but the title, award, category, description, and link remain left-aligned to preserve the portfolio's editorial language.
 
 The panel remains fixed on the left on desktop and stacks below the track on mobile. Its position does not change between projects.
 
@@ -71,7 +80,7 @@ Each active project includes:
 - category;
 - verified description where available;
 - project link or an honest muted missing-link state;
-- project-specific artwork slot above the title.
+- project-specific artwork slot above the title, using most of the card width.
 
 The artwork and text fade/translate together at checkpoint changes rather than being replaced abruptly. Long titles such as SulatBaybayin must remain readable without colliding with the artwork or metadata.
 
@@ -84,14 +93,14 @@ Add a restrained smoke group behind the car, inside the `#race-car` group and be
 Desktop composition:
 
 ```text
-LEFT EDITORIAL PANEL              RIGHT / CROPPED CIRCUIT
+LARGE LEFT FEATURE CARD           FULL-WIDTH CIRCUIT STAGE
 large project artwork             Suzuka path
-centered project title            blue completed trail
+left-aligned project title        blue completed trail
 award + category + description    small car with smoke
 project link                      numbered checkpoint dots
 ```
 
-The track is intentionally oversized and cropped. The card remains readable and stable while the circuit supplies movement and spatial drama.
+The track remains large and visually important, but cropping is minimal and intentional. Expanding the track stage should allow most of the Suzuka circuit to remain visible without shrinking it excessively. The card remains readable and stable while the circuit supplies movement and spatial drama.
 
 ## Interaction behavior
 
@@ -113,10 +122,10 @@ The track is intentionally oversized and cropped. The card remains readable and 
 ## Verification criteria
 
 1. The existing motion-path and sticky scroll behavior still works.
-2. At 0%, 10%, 25%, 50%, 75%, and 100% progress, the completed trail ends at the car center.
+2. At 0%, 10%, 25%, 50%, 75%, 90%, and 100% progress, the completed trail ends at the car center.
 3. The same car/trail invariant holds on desktop and mobile layouts.
 4. The project panel never moves from the left side on desktop.
-5. The track is visually dominant and visibly cropped/bleeding on desktop while remaining recognizable as Suzuka.
+5. The track remains large and visually important while most of the Suzuka circuit remains visible and recognizable; any cropping is minimal and intentional.
 6. Dashboard-like status, percentage, and duplicate progress UI are removed.
 7. Checkpoints are small numbered dots with the blue completed trail preserved.
 8. Ghosted current project number changes with the active project and stays secondary to `SUZUKA`.
@@ -127,3 +136,9 @@ The track is intentionally oversized and cropped. The card remains readable and 
 13. Real future screenshots can replace the artwork slots without changing scroll logic.
 14. The car has restrained rear smoke, with animation disabled for reduced motion.
 15. Mobile remains readable and reduced-motion behavior still works.
+16. The track stage uses the full available viewport width within the page margins and is not constrained by the project-card width.
+17. The active project card is substantially larger than the previous draft and visually occupies the left side as a primary portfolio feature.
+18. The project image preview is the dominant visual element inside the project card.
+19. Project card hierarchy is image, title, award/meta, category, description, then project CTA.
+20. Track cropping occurs only because of deliberate viewport composition, not because the track-stage wrapper is too narrow.
+21. Rear smoke originates behind the car, follows its orientation, dissipates quickly, and never obscures track checkpoints or project content.
