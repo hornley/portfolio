@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A scroll-driven lap through Harley Albert Buendia's selected software projects."
+    />
+    <title>Projects / Suzuka — Harley Albert Buendia</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="projects-page" id="top">
+      <header class="projects-header">
+        <a class="wordmark" href="../" aria-label="Back to Harley Albert Buendia home">
+          <span>Harley Albert</span>
+          <span>Buendia</span>
+        </a>
+        <div class="header-status">
+          <span>Projects / Suzuka</span>
+          <span>Scroll to lap</span>
+        </div>
+        <a class="header-back" href="../">Back home <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main>
+        <section class="projects-intro" aria-labelledby="projects-title">
+          <div class="projects-intro__copy">
+            <p class="eyebrow">Selected work / Japanese GP</p>
+            <h1 id="projects-title">Take the<br /><em>project lap.</em></h1>
+            <p class="intro-note">Scroll through a continuous lap around a Suzuka-inspired circuit.</p>
+          </div>
+          <div class="intro-readout" aria-label="Lap information">
+            <span>04 projects</span>
+            <span>02 champions</span>
+            <span>01 lap</span>
+          </div>
+        </section>
+
+        <section class="projects-race" id="projects-race" aria-label="Scroll-driven selected projects">
+          <div class="projects-race__sticky">
+            <div class="track-stage" aria-hidden="true">
+              <div class="track-stage__label track-stage__label--top">Suzuka / project lap</div>
+              <div class="track-stage__label track-stage__label--bottom">Start / finish</div>
+
+              <svg class="track-map" viewBox="0 0 1000 620" role="img" aria-label="Stylized Suzuka-inspired racing circuit">
+                <defs>
+                  <filter id="car-shadow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#111311" flood-opacity="0.18" />
+                  </filter>
+                </defs>
+
+                <path
+                  class="track-path track-path--base"
+                  id="track-path"
+                  d="M 700 500 L 865 500 C 918 500 948 469 948 423 C 948 378 920 350 875 350 L 770 350 C 716 350 688 319 688 275 C 688 224 719 180 776 170 L 899 145 C 939 137 955 104 930 78 C 902 49 856 64 824 90 L 700 184 C 660 215 625 210 600 180 C 560 131 502 96 440 111 C 376 126 340 187 365 240 C 390 291 449 305 490 276 C 525 251 550 262 562 298 C 584 361 550 420 490 435 C 421 450 350 411 340 350 C 330 290 360 245 330 210 C 299 171 245 164 210 196 C 152 248 184 310 225 345 C 275 389 286 449 240 495 C 210 525 180 549 226 571 C 280 597 360 566 405 526 C 450 485 500 491 555 511 L 700 560 C 723 568 732 538 700 500"
+                  fill="none"
+                />
+                <path class="track-path track-path--completed" id="track-completed" d="M 700 500 L 865 500 C 918 500 948 469 948 423 C 948 378 920 350 875 350 L 770 350 C 716 350 688 319 688 275 C 688 224 719 180 776 170 L 899 145 C 939 137 955 104 930 78 C 902 49 856 64 824 90 L 700 184 C 660 215 625 210 600 180 C 560 131 502 96 440 111 C 376 126 340 187 365 240 C 390 291 449 305 490 276 C 525 251 550 262 562 298 C 584 361 550 420 490 435 C 421 450 350 411 340 350 C 330 290 360 245 330 210 C 299 171 245 164 210 196 C 152 248 184 310 225 345 C 275 389 286 449 240 495 C 210 525 180 549 226 571 C 280 597 360 566 405 526 C 450 485 500 491 555 511 L 700 560 C 723 568 732 538 700 500" fill="none" />
+
+                <g class="start-finish" transform="translate(694 484) rotate(18)">
+                  <rect width="44" height="9" rx="1" fill="#f6f6f2" />
+                  <path d="M 4 0 H 10 V 4 H 4 Z M 16 4 H 22 V 8 H 16 Z M 28 0 H 34 V 4 H 28 Z M 40 4 H 44 V 8 H 40 Z" fill="#2559d6" />
+                </g>
+
+                <g class="checkpoints" id="checkpoints">
+                  <g class="checkpoint" data-progress="0.14" data-index="0">
+                    <circle class="checkpoint__halo" r="15" />
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">01</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.38" data-index="1">
+                    <circle class="checkpoint__halo" r="15" />
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">02</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.62" data-index="2">
+                    <circle class="checkpoint__halo" r="15" />
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">03</text>
+                  </g>
+                  <g class="checkpoint" data-progress="0.84" data-index="3">
+                    <circle class="checkpoint__halo" r="15" />
+                    <circle class="checkpoint__dot" r="5" />
+                    <text class="checkpoint__label" y="-19">04</text>
+                  </g>
+                </g>
+
+                <g class="race-car" id="race-car" filter="url(#car-shadow)">
+                  <path class="race-car__shadow" d="M -17 -8 L -10 -13 L 10 -13 L 17 -8 L 17 8 L 10 13 L -10 13 L -17 8 Z" />
+                  <path class="race-car__body" d="M -18 -7 L -9 -12 L 8 -12 L 18 -5 L 15 7 L 8 11 L -12 11 L -18 6 Z" />
+                  <path class="race-car__nose" d="M 11 -4 L 23 0 L 11 4 Z" />
+                  <path class="race-car__cockpit" d="M -3 -7 L 8 -6 L 12 0 L 7 6 L -3 6 L -8 0 Z" />
+                  <circle class="race-car__wheel" cx="-10" cy="-11" r="4" />
+                  <circle class="race-car__wheel" cx="-10" cy="11" r="4" />
+                  <circle class="race-car__wheel" cx="10" cy="-10" r="4" />
+                  <circle class="race-car__wheel" cx="10" cy="10" r="4" />
+                </g>
+              </svg>
+
+              <div class="track-stage__corner">Scroll progress <span id="scroll-percent">00</span>%</div>
+            </div>
+
+            <article class="project-panel" id="project-panel" aria-live="polite" aria-atomic="true">
+              <div class="project-panel__topline">
+                <span id="panel-sector">Sector 01 / 04</span>
+                <span id="panel-status">On track</span>
+              </div>
+              <div class="project-panel__content" id="project-content">
+                <p class="project-panel__number" id="panel-number">01</p>
+                <h2 id="panel-title">Zeni</h2>
+                <p class="project-panel__award" id="panel-award"></p>
+                <p class="project-panel__category" id="panel-category">Software / Product</p>
+                <p class="project-panel__description" id="panel-description">A project from the selected work lineup.</p>
+                <div class="project-panel__action" id="panel-action"></div>
+              </div>
+            </article>
+
+            <div class="race-progress" aria-label="Project lap progress">
+              <div class="race-progress__heading">
+                <span>Project lap</span>
+                <span id="progress-label">01 / 04</span>
+              </div>
+              <div class="race-progress__rail">
+                <span class="race-progress__fill" id="progress-fill"></span>
+              </div>
+              <div class="race-progress__markers" id="progress-markers">
+                <span class="is-active">01 Zeni</span>
+                <span>02 Kairo</span>
+                <span>03 AyudaPay</span>
+                <span>04 Sulat</span>
+              </div>
+            </div>
+
+            <p class="scroll-cue" id="scroll-cue"><span class="scroll-cue__line"></span> Scroll to drive</p>
+
+            <div class="lap-complete" id="lap-complete" aria-hidden="true">
+              <p class="eyebrow">Finish line</p>
+              <h2>Lap complete<span>.</span></h2>
+              <p>04 projects. 02 wins. Still building.</p>
+              <a class="text-link" href="../#contact">Start a conversation <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+
+          <div class="projects-fallback" aria-label="Project list fallback">
+            <h2>Selected projects</h2>
+            <ol>
+              <li>Zeni — Software / Product</li>
+              <li>Kairo — Software / Product</li>
+              <li>AyudaPay — FinTech / Blockchain / AI — Champion, Hack-it-UP 2026</li>
+              <li>SulatBaybayin — Computer Vision / OCR</li>
+            </ol>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

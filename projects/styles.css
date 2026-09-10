@@ -1,0 +1,709 @@
+:root {
+  --paper: #f6f6f2;
+  --paper-deep: #e9e9e3;
+  --ink: #111311;
+  --muted: #696d67;
+  --line: #d9dbd3;
+  --accent: #2559d6;
+  --accent-soft: #dce5ff;
+  --max-width: 1440px;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Manrope", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 5px;
+}
+
+.projects-page {
+  width: min(100% - 3rem, var(--max-width));
+  margin: 0 auto;
+}
+
+.projects-header {
+  position: relative;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  min-height: 82px;
+  border-bottom: 1px solid var(--line);
+  padding: 1.75rem 0;
+}
+
+.wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.05rem;
+  width: fit-content;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-decoration: none;
+}
+
+.header-status,
+.header-back,
+.eyebrow,
+.track-stage__label,
+.track-stage__corner,
+.race-progress,
+.scroll-cue {
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.header-status {
+  display: flex;
+  gap: 1.5rem;
+  color: var(--muted);
+}
+
+.header-back {
+  justify-self: end;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.header-back span,
+.text-link span:last-child {
+  display: inline-block;
+  transition: transform 180ms ease;
+}
+
+.header-back:hover span,
+.text-link:hover span:last-child {
+  transform: translate(3px, -3px);
+}
+
+.projects-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 0.28fr);
+  align-items: end;
+  min-height: min(68vh, 650px);
+  padding: clamp(5rem, 11vw, 9rem) 0 clamp(4.5rem, 9vw, 7rem);
+}
+
+.projects-intro__copy {
+  max-width: 760px;
+}
+
+.eyebrow {
+  margin: 0 0 1.4rem;
+  color: var(--muted);
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-weight: 800;
+  letter-spacing: -0.07em;
+}
+
+h1 {
+  max-width: 8ch;
+  margin-bottom: 1.8rem;
+  font-size: clamp(4.3rem, 9vw, 8.6rem);
+  line-height: 0.88;
+}
+
+h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.intro-note {
+  max-width: 24rem;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+  line-height: 1.45;
+}
+
+.intro-readout {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  align-self: end;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.projects-race {
+  position: relative;
+  height: 620vh;
+}
+
+.projects-race__sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.track-stage {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.track-stage::before,
+.track-stage::after {
+  position: absolute;
+  color: rgba(17, 19, 17, 0.05);
+  font-size: clamp(9rem, 24vw, 23rem);
+  font-weight: 800;
+  letter-spacing: -0.12em;
+  line-height: 0.8;
+  pointer-events: none;
+  user-select: none;
+}
+
+.track-stage::before {
+  content: "SUZUKA";
+  top: 4%;
+  right: -1%;
+}
+
+.track-stage::after {
+  content: "01—04";
+  bottom: -2%;
+  left: 21%;
+}
+
+.track-stage__label,
+.track-stage__corner {
+  position: absolute;
+  z-index: 2;
+  color: rgba(17, 19, 17, 0.48);
+  pointer-events: none;
+}
+
+.track-stage__label--top {
+  top: 2rem;
+  right: 3rem;
+}
+
+.track-stage__label--bottom {
+  bottom: 2.5rem;
+  left: 24%;
+}
+
+.track-stage__corner {
+  right: 3rem;
+  bottom: 2.5rem;
+}
+
+.track-map {
+  position: absolute;
+  top: 50%;
+  left: 24%;
+  width: min(75vw, 1050px);
+  height: auto;
+  overflow: visible;
+  transform: translateY(-50%);
+}
+
+.track-path {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.track-path--base {
+  stroke: #d5d7d0;
+  stroke-width: 16;
+}
+
+.track-path--completed {
+  stroke: var(--accent);
+  stroke-width: 16;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.start-finish {
+  opacity: 0.65;
+}
+
+.checkpoint {
+  color: var(--muted);
+  transition: color 220ms ease;
+}
+
+.checkpoint__halo {
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 1;
+  opacity: 0.45;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: fill 220ms ease, opacity 220ms ease, transform 220ms ease;
+}
+
+.checkpoint__dot {
+  fill: var(--paper);
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill 220ms ease, stroke 220ms ease;
+}
+
+.checkpoint__label {
+  fill: currentColor;
+  font-family: "Manrope", "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-anchor: middle;
+}
+
+.checkpoint.is-passed,
+.checkpoint.is-active {
+  color: var(--accent);
+}
+
+.checkpoint.is-active .checkpoint__halo {
+  fill: var(--accent-soft);
+  opacity: 0.9;
+  transform: scale(1.35);
+}
+
+.checkpoint.is-active .checkpoint__dot {
+  fill: var(--accent);
+  stroke: var(--accent);
+}
+
+.race-car {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.race-car__shadow {
+  fill: rgba(17, 19, 17, 0.08);
+  transform: translateY(4px);
+}
+
+.race-car__body,
+.race-car__nose {
+  fill: var(--accent);
+}
+
+.race-car__cockpit {
+  fill: var(--ink);
+}
+
+.race-car__wheel {
+  fill: var(--ink);
+}
+
+.project-panel {
+  position: absolute;
+  top: 50%;
+  left: clamp(1.5rem, 5vw, 5.5rem);
+  z-index: 5;
+  width: min(33vw, 430px);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line);
+  background: rgba(246, 246, 242, 0.9);
+  padding: 1rem clamp(1.1rem, 2.5vw, 2.25rem) 2rem;
+  transform: translateY(-50%);
+  transition: left 500ms cubic-bezier(0.2, 0.75, 0.25, 1), right 500ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.projects-race.is-card-right .project-panel {
+  right: clamp(1.5rem, 5vw, 5.5rem);
+  left: auto;
+}
+
+.project-panel__topline,
+.race-progress__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+#panel-status {
+  color: var(--accent);
+}
+
+.project-panel__content {
+  padding-top: clamp(4rem, 8vw, 7rem);
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.project-panel.is-changing .project-panel__content {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.project-panel__number {
+  margin-bottom: 0.5rem;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.project-panel h2 {
+  max-width: 7ch;
+  margin-bottom: 1rem;
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  line-height: 0.86;
+}
+
+.project-panel__award {
+  max-width: 31ch;
+  margin-bottom: 0.85rem;
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.project-panel__category {
+  margin-bottom: 1rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.project-panel__description {
+  max-width: 33ch;
+  min-height: 3.1em;
+  margin-bottom: 1.8rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.project-panel__action {
+  min-height: 1.5rem;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.3rem;
+  color: var(--accent);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: gap 180ms ease;
+}
+
+.text-link:hover {
+  gap: 1rem;
+}
+
+.project-panel__muted {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.race-progress {
+  position: absolute;
+  right: 3rem;
+  bottom: 2.4rem;
+  z-index: 5;
+  width: min(31vw, 420px);
+  color: var(--muted);
+}
+
+.race-progress__heading {
+  margin-bottom: 0.7rem;
+}
+
+.race-progress__rail {
+  height: 3px;
+  overflow: hidden;
+  background: var(--line);
+}
+
+.race-progress__fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+  transition: width 120ms linear;
+}
+
+.race-progress__markers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  padding-top: 0.7rem;
+  color: rgba(17, 19, 17, 0.5);
+  font-size: 0.58rem;
+  letter-spacing: 0.04em;
+}
+
+.race-progress__markers span.is-active {
+  color: var(--accent);
+}
+
+.scroll-cue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 3rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+}
+
+.scroll-cue__line {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.lap-complete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 10;
+  width: min(90vw, 560px);
+  border-top: 1px solid var(--ink);
+  background: rgba(246, 246, 242, 0.96);
+  padding: 1.3rem clamp(1.25rem, 3vw, 2.5rem) 2.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -45%);
+  transition: opacity 450ms ease, transform 450ms ease;
+}
+
+.lap-complete.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+}
+
+.lap-complete h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: 0.86;
+}
+
+.lap-complete h2 span {
+  color: var(--accent);
+}
+
+.lap-complete > p:not(.eyebrow) {
+  margin-bottom: 1.8rem;
+  color: var(--muted);
+}
+
+.projects-fallback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 800px) {
+  .projects-page {
+    width: min(100% - 2rem, var(--max-width));
+  }
+
+  .projects-header {
+    grid-template-columns: 1fr auto;
+    min-height: 72px;
+    padding: 1.35rem 0;
+  }
+
+  .header-status {
+    display: none;
+  }
+
+  .header-back {
+    font-size: 0.62rem;
+  }
+
+  .projects-intro {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 6rem 0 5.5rem;
+  }
+
+  .intro-readout {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin-top: 4rem;
+  }
+
+  .projects-race {
+    height: 500vh;
+  }
+
+  .projects-race__sticky {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+
+  .track-stage {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 45dvh;
+  }
+
+  .track-stage::before,
+  .track-stage::after {
+    font-size: 26vw;
+  }
+
+  .track-stage__label--top {
+    top: 1.4rem;
+    right: 1rem;
+  }
+
+  .track-stage__label--bottom {
+    bottom: 1rem;
+    left: 1rem;
+  }
+
+  .track-stage__corner {
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .track-map {
+    top: 50%;
+    left: 4%;
+    width: 92vw;
+  }
+
+  .track-path--base,
+  .track-path--completed {
+    stroke-width: 13;
+  }
+
+  .project-panel,
+  .projects-race.is-card-right .project-panel {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    z-index: 5;
+    width: 100%;
+    margin: 0 0 5rem;
+    padding: 1rem 0 1.5rem;
+    background: transparent;
+    transform: none;
+  }
+
+  .project-panel__content {
+    padding-top: 2rem;
+  }
+
+  .project-panel h2 {
+    font-size: clamp(3rem, 16vw, 5.4rem);
+  }
+
+  .project-panel__description {
+    min-height: 0;
+    max-width: 34ch;
+  }
+
+  .race-progress {
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    width: auto;
+  }
+
+  .race-progress__markers span {
+    overflow: hidden;
+    font-size: 0.52rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .scroll-cue {
+    top: calc(45dvh + 0.75rem);
+    right: 1rem;
+    bottom: auto;
+    left: auto;
+    font-size: 0.57rem;
+  }
+
+  .scroll-cue__line {
+    width: 16px;
+  }
+
+  .lap-complete {
+    top: 58%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
