@@ -1,3 +1,94 @@
+const criticalAssetPaths = [
+  "avatars/silhouette.png",
+  "avatars/drawn.png",
+  "avatars/colorless.png",
+  "avatars/glitched.png",
+  "avatars/clean.png",
+  "projects/projects_background.png",
+];
+
+const pageLoader = document.querySelector("#page-loader");
+const pageLoaderStatus = document.querySelector("#page-loader-status");
+const pageLoaderProgress = document.querySelector("#page-loader-progress");
+const pageLoaderProgressBar = document.querySelector("#page-loader-progress-bar");
+const criticalAssetCount = criticalAssetPaths.length;
+let loadedCriticalAssetCount = 0;
+let criticalAssetGateReleased = false;
+
+function updateCriticalAssetProgress() {
+  loadedCriticalAssetCount += 1;
+  const progress = Math.round((loadedCriticalAssetCount / criticalAssetCount) * 100);
+
+  if (pageLoaderProgress) {
+    pageLoaderProgress.textContent = `${Math.min(loadedCriticalAssetCount, criticalAssetCount)} / ${criticalAssetCount}`;
+  }
+
+  if (pageLoaderProgressBar) {
+    pageLoaderProgressBar.style.width = `${Math.min(progress, 100)}%`;
+  }
+}
+
+function loadCriticalAsset(path) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    let settled = false;
+
+    const settle = (error) => {
+      if (settled) return;
+      settled = true;
+
+      if (error) {
+        reject(error);
+        return;
+      }
+
+      const decodePromise = typeof image.decode === "function" ? image.decode().catch(() => undefined) : Promise.resolve();
+      decodePromise.then(resolve);
+    };
+
+    image.addEventListener("load", () => settle());
+    image.addEventListener("error", () => settle(new Error(`Unable to load ${path}`)));
+    image.src = path;
+
+    if (image.complete) {
+      settle(image.naturalWidth > 0 ? undefined : new Error(`Unable to load ${path}`));
+    }
+  });
+}
+
+function releaseCriticalAssetGate() {
+  if (criticalAssetGateReleased) return;
+  criticalAssetGateReleased = true;
+
+  if (pageLoaderStatus) pageLoaderStatus.textContent = "Ready to explore";
+  if (pageLoaderProgress) pageLoaderProgress.textContent = `${criticalAssetCount} / ${criticalAssetCount}`;
+  if (pageLoaderProgressBar) pageLoaderProgressBar.style.width = "100%";
+
+  document.documentElement.classList.remove("is-loading");
+  document.body.classList.remove("is-loading");
+  document.body.classList.add("is-ready");
+  document.body.setAttribute("aria-busy", "false");
+  if (pageLoader) pageLoader.setAttribute("aria-hidden", "true");
+}
+
+function startCriticalAssetGate() {
+  if (!pageLoader) return;
+
+  document.documentElement.classList.add("is-loading");
+
+  const assetPromises = criticalAssetPaths.map((path) =>
+    loadCriticalAsset(path).finally(updateCriticalAssetProgress),
+  );
+  const allAssetsSettled = Promise.allSettled(assetPromises);
+  const fallback = new Promise((resolve) => window.setTimeout(resolve, 6500));
+
+  Promise.race([allAssetsSettled, fallback]).then(() => {
+    window.requestAnimationFrame(releaseCriticalAssetGate);
+  });
+}
+
+startCriticalAssetGate();
+
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 
