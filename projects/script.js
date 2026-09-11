@@ -16,39 +16,57 @@ const ghostNumber = document.querySelector("#ghost-number");
 const projects = [
   {
     number: "01",
-    slug: "zeni",
-    name: "Zeni",
-    category: "Software / Product",
-    description: "A project from the selected work lineup.",
+    slug: "ayudapay",
+    name: "AyudaPay",
+    category: "Civic Tech / FinTech",
+    description: "A platform that helps Filipinos discover and apply for government programs, scholarships, and LGU benefits through AI matching, eligibility guidance, and Stellar-based disbursements.",
     award: "",
-    link: "",
+    link: "https://github.com/wehyn/ayudamatch",
   },
   {
     number: "02",
-    slug: "kairo",
-    name: "Kairo",
-    category: "Software / Product",
-    description: "A project from the selected work lineup.",
+    slug: "rekado-lens",
+    name: "Rekado Lens",
+    category: "Health Tech / AI",
+    description: "A web-based ingredient intelligence application that analyzes food, drinks, and beauty products against a user's allergies, dietary preferences, and medical conditions.",
     award: "",
-    link: "",
+    link: "https://github.com/hornley/codekada-sci-coders",
   },
   {
     number: "03",
-    slug: "ayudapay",
-    name: "AyudaPay",
-    category: "FinTech / Blockchain / AI",
-    description: "A blockchain-enabled aid distribution system designed for transparent and instant financial assistance.",
-    award: "🏆 Champion — Hack-it-UP 2026 · UP SoComSci",
+    slug: "sora",
+    name: "Sora",
+    category: "AI Assistant / Systems",
+    description: "A modular personal AI assistant built as a modular monolith with clean provider interfaces for replaceable LLM, speech, wake-word, vision, embeddings, and orchestration capabilities.",
+    award: "",
     link: "",
   },
   {
     number: "04",
+    slug: "zeni",
+    name: "Zeni",
+    category: "Finance / Full-stack",
+    description: "A private, self-hosted finance tracker with a quiet API-first ledger for accounts, transactions, categories, settlements, profiles, reports, and multi-user local data.",
+    award: "",
+    link: "",
+  },
+  {
+    number: "05",
+    slug: "kairo",
+    name: "Kairo",
+    category: "Information / Automation",
+    description: "A local-first personal information aggregation service with a read-only API that collects Gmail and Canvas signals, stores normalized records, and produces source-linked daily briefs.",
+    award: "",
+    link: "",
+  },
+  {
+    number: "06",
     slug: "sulatbaybayin",
     name: "SulatBaybayin",
     category: "Computer Vision / OCR",
-    description: "A Baybayin detection and recognition system that turns handwritten script into assembled text.",
+    description: "An AI-powered Baybayin recognition system using a custom Faster R-CNN detection and classification pipeline to reconstruct handwritten characters into digital text.",
     award: "",
-    link: "",
+    link: "https://github.com/hornley/sulatbaybayin",
   },
 ];
 
@@ -101,7 +119,7 @@ function updatePanel(index) {
     ghostNumber.textContent = project.number;
     panelAction.innerHTML = project.link
       ? `<a class="text-link" href="${project.link}" target="_blank" rel="noreferrer">View project <span aria-hidden="true">↗</span></a>`
-      : `<span class="project-panel__muted">Project link to be added</span>`;
+      : `<span class="project-panel__muted">SOURCE / PRIVATE</span>`;
   };
 
   if (prefersReducedMotion) {

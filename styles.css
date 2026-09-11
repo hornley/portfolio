@@ -1267,11 +1267,13 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100vw;
   min-height: 100dvh;
   margin-top: 0;
+  margin-left: calc(50% - 50vw);
   border-top: 1px solid var(--line);
-  background: var(--paper);
-  padding: clamp(7rem, 14vh, 10rem) 0 3.5rem;
+  background: url("contact/contact_background.png") center / cover no-repeat;
+  padding: clamp(7rem, 14vh, 10rem) max(1.5rem, calc((100vw - var(--max-width)) / 2)) 3.5rem;
 }
 
 .site-footer .reveal {
@@ -1280,10 +1282,10 @@ h2 {
 }
 
 .footer-main {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 3rem;
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.72fr) minmax(28rem, 1fr);
+  align-items: start;
+  gap: clamp(3rem, 8vw, 10rem);
 }
 
 .footer-lead h2 {
@@ -1301,51 +1303,134 @@ h2 {
   line-height: 1.35;
 }
 
-.sora-button {
-  display: inline-flex;
-  align-items: center;
+.contact-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  width: 100%;
+  padding-top: clamp(0.5rem, 4vh, 3.5rem);
+}
+
+.contact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  width: clamp(12rem, 16vw, 15.5rem);
-  min-height: 4.3rem;
-  border: 1px solid #9cbaff;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 1.5rem rgba(37, 89, 214, 0.2);
-  color: var(--accent);
-  padding: 0 1.5rem 0 1.7rem;
-  font-size: 1.05rem;
-  font-weight: 800;
+  width: min(100%, 29rem);
+  min-height: clamp(8.5rem, 15vw, 12rem);
+  border: 1px solid rgba(17, 19, 17, 0.62);
+  background: rgba(246, 246, 242, 0.68);
+  color: var(--ink);
+  padding: 1rem 1.15rem 1.05rem;
   text-decoration: none;
-  transition: box-shadow 180ms ease, transform 180ms ease;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 220ms ease;
 }
 
-.sora-button:hover {
-  box-shadow: 0 0 2rem rgba(37, 89, 214, 0.34);
-  transform: translateY(-2px);
+.contact-card + .contact-card {
+  margin-top: -1px;
 }
 
-.sora-button__signal {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  height: 1.8rem;
+.contact-card--github {
+  align-self: flex-end;
+  transform: translateX(-9%);
 }
 
-.sora-button__signal i {
-  display: block;
-  width: 2px;
-  height: 0.8rem;
-  border-radius: 99px;
+.contact-card--linkedin {
+  align-self: flex-end;
+  transform: translateX(4%) translateY(1.4rem);
+}
+
+.contact-card--email {
+  align-self: flex-start;
+  transform: translateX(15%) translateY(2.8rem);
+}
+
+.contact-card:hover,
+.contact-card:focus-visible {
+  background: rgba(246, 246, 242, 0.9);
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-0.25rem);
+}
+
+.contact-card:hover .contact-card__arrow,
+.contact-card:focus-visible .contact-card__arrow {
+  transform: translate(0.2rem, -0.2rem);
+}
+
+.contact-card--github:hover,
+.contact-card--github:focus-visible {
+  transform: translateX(-9%) translateY(-0.25rem);
+}
+
+.contact-card--linkedin:hover,
+.contact-card--linkedin:focus-visible {
+  transform: translateX(4%) translateY(1.15rem);
+}
+
+.contact-card--email:hover,
+.contact-card--email:focus-visible {
+  transform: translateX(15%) translateY(2.55rem);
+}
+
+.contact-card__label {
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.contact-card__action {
+  max-width: 8ch;
+  font-size: clamp(2.7rem, 5.1vw, 5.4rem);
+  font-weight: 900;
+  letter-spacing: -0.095em;
+  line-height: 0.78;
+  text-transform: uppercase;
+}
+
+.contact-card__arrow {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  color: var(--accent);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: transform 180ms ease;
+}
+
+.contact-card img,
+.contact-card__mark {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.85rem;
+  width: 2.15rem;
+  height: 2.15rem;
+  object-fit: contain;
+  opacity: 0.85;
+}
+
+.contact-card__mark {
+  display: grid;
+  width: 2.65rem;
+  height: 2.65rem;
+  place-items: center;
   background: var(--accent);
+  color: var(--paper);
+  font-family: Arial, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
 }
 
-.sora-button__signal i:nth-child(2),
-.sora-button__signal i:nth-child(4) {
-  height: 1.35rem;
-}
-
-.sora-button__signal i:nth-child(3) {
-  height: 1.8rem;
+.contact-card__mark--email {
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--accent);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 1.45rem;
 }
 
 .footer-bottom {
@@ -1357,52 +1442,8 @@ h2 {
   padding-top: 1.2rem;
 }
 
-.footer-socials {
-  display: flex;
-  align-items: center;
-  gap: 0;
-}
-
-.footer-socials a {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.8rem;
-  min-height: 2rem;
-  padding: 0 4.5rem 0 0;
-  color: var(--ink);
-  font-size: 0.78rem;
-  text-decoration: none;
-}
-
-.footer-socials a + a {
-  border-left: 1px solid var(--line);
-  padding-left: 4.5rem;
-}
-
-.footer-socials a:hover,
 .back-to-top:hover {
   color: var(--accent);
-}
-
-.footer-socials__icon {
-  font-size: 1.35rem;
-  line-height: 1;
-}
-
-.footer-socials__icon--linkedin {
-  display: inline-grid;
-  width: 1.25rem;
-  height: 1.25rem;
-  place-items: center;
-  border-radius: 2px;
-  background: var(--ink);
-  color: var(--paper);
-  font-size: 0.75rem;
-  font-weight: 800;
-}
-
-.footer-socials__icon--email {
-  font-size: 1.5rem;
 }
 
 .back-to-top {
@@ -1659,8 +1700,8 @@ h2 {
   }
 
   .footer-main {
+    grid-template-columns: 1fr;
     align-items: flex-start;
-    flex-direction: column;
     gap: 3rem;
   }
 
@@ -1668,8 +1709,37 @@ h2 {
     font-size: clamp(3.5rem, 16vw, 5.5rem);
   }
 
-  .sora-button {
-    align-self: flex-end;
+  .contact-cards {
+    align-items: stretch;
+    padding-top: 0;
+  }
+
+  .contact-card,
+  .contact-card--github,
+  .contact-card--linkedin,
+  .contact-card--email {
+    align-self: stretch;
+    width: 100%;
+    transform: none;
+  }
+
+  .contact-card + .contact-card {
+    margin-top: 0.75rem;
+  }
+
+  .contact-card__action {
+    font-size: clamp(2.7rem, 14vw, 5rem);
+  }
+
+  .contact-card:hover,
+  .contact-card:focus-visible,
+  .contact-card--github:hover,
+  .contact-card--github:focus-visible,
+  .contact-card--linkedin:hover,
+  .contact-card--linkedin:focus-visible,
+  .contact-card--email:hover,
+  .contact-card--email:focus-visible {
+    transform: translateY(-0.25rem);
   }
 
   .footer-bottom {
@@ -1677,23 +1747,6 @@ h2 {
     flex-direction: column;
   }
 
-  .footer-socials {
-    align-items: flex-start;
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .footer-socials a,
-  .footer-socials a + a {
-    width: 100%;
-    border-left: 0;
-    border-top: 1px solid var(--line);
-    padding: 0.75rem 0;
-  }
-
-  .footer-socials a:first-child {
-    border-top: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1927,11 +1980,12 @@ h2 {
 }
 
 .project-panel__description {
-  max-width: 28ch;
+  width: 100%;
+  max-width: 100%;
   min-height: 3.1em;
   margin-bottom: 1.8rem;
-  color: #424740;
-  font-size: 0.86rem;
+  color: var(--ink);
+  font-size: clamp(0.98rem, 1.15vw, 1.12rem);
   line-height: 1.5;
 }
 
@@ -1965,6 +2019,14 @@ h2 {
   background: var(--paper-deep);
 }
 
+.project-artwork img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--paper-deep);
+  object-fit: contain;
+}
+
 .project-artwork__variant {
   position: absolute;
   inset: 0;
@@ -1974,6 +2036,9 @@ h2 {
   transition: opacity 260ms ease, visibility 260ms ease;
 }
 
+.project-artwork[data-project="sora"] .project-artwork__variant--sora,
+.project-artwork[data-project="ayudapay"] .project-artwork__variant--ayudapay,
+.project-artwork[data-project="rekado-lens"] .project-artwork__variant--rekado,
 .project-artwork[data-project="zeni"] .project-artwork__variant--zeni,
 .project-artwork[data-project="kairo"] .project-artwork__variant--kairo,
 .project-artwork[data-project="ayudapay"] .project-artwork__variant--ayudapay,
@@ -1984,6 +2049,14 @@ h2 {
 
 .project-artwork__variant--zeni {
   background: var(--accent);
+}
+
+.project-artwork__variant--sora {
+  background: #101a36;
+}
+
+.project-artwork__variant--rekado {
+  background: #e8e3d6;
 }
 
 .project-artwork__variant--kairo {
@@ -1999,6 +2072,8 @@ h2 {
 }
 
 .artwork-word,
+.artwork-signal,
+.artwork-scan,
 .artwork-corner,
 .artwork-orbit,
 .artwork-block,
@@ -2018,6 +2093,51 @@ h2 {
   letter-spacing: -0.09em;
   line-height: 0.84;
   transform: translateY(-50%);
+}
+
+.artwork-signal {
+  top: 50%;
+  right: 16%;
+  width: 18%;
+  border-top: 1px solid rgba(255, 255, 255, 0.7);
+  transform: rotate(-28deg);
+}
+
+.artwork-signal--one {
+  right: 27%;
+  width: 29%;
+}
+
+.artwork-signal--two {
+  top: 42%;
+  right: 10%;
+  width: 25%;
+  border-color: var(--accent-soft);
+}
+
+.artwork-signal--three {
+  top: 62%;
+  right: 23%;
+  width: 22%;
+}
+
+.artwork-scan {
+  inset: 18% 11% 16% 55%;
+  border: 1px solid rgba(37, 89, 214, 0.72);
+}
+
+.artwork-scan--one {
+  transform: rotate(8deg);
+}
+
+.artwork-scan--two {
+  inset: 27% 20% 27% 47%;
+  border-color: rgba(17, 19, 17, 0.38);
+  transform: rotate(-7deg);
+}
+
+.project-artwork__variant--rekado .artwork-word {
+  color: var(--ink);
 }
 
 .artwork-word--baybayin {
@@ -2219,7 +2339,7 @@ h2 {
 
   .project-panel__description {
     min-height: 0;
-    max-width: 34ch;
+    max-width: 100%;
   }
 }
 
