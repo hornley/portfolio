@@ -801,16 +801,24 @@ h2 {
 }
 
 .achievements-intro {
+  position: relative;
+  width: auto;
+  z-index: 4;
+  display: block;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 6rem) 0;
+  text-align: center;
+  transform: none;
+  transform-origin: center center;
+  transition: opacity 180ms ease, transform 260ms ease, top 260ms ease;
+}
+
+.achievements-section.is-enhanced .achievements-intro {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 100%;
-  z-index: 4;
-  display: block;
-  text-align: center;
+  padding: 0;
   transform: translateX(-50%);
-  transform-origin: center center;
-  transition: opacity 180ms ease, transform 260ms ease, top 260ms ease;
 }
 
 .achievements-intro h2 {
@@ -1653,7 +1661,7 @@ h2 {
     height: 600vh;
   }
 
-  .achievements-intro {
+  .achievements-section.is-enhanced .achievements-intro {
     left: 50%;
     width: 100%;
     padding: 0 1rem;
