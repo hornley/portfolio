@@ -12,7 +12,7 @@
 
 ## Spec fit and deployment adaptation
 
-The approved project scope, names, categories, descriptions, public/private link behavior, and Near But Far caveat still fit. A later user follow-up supplies a GestureDeck screenshot to replace only that card's CSS illustration; Near But Far and DevCompanion retain their approved CSS artwork. The spec's page-specific implementation describes an earlier site version: project arrays on two pages, carousel checkpoints, fallback lists, duplicated artwork panels, and a 16:8 carousel frame. `origin/main` instead has six static cards in one homepage grid, a 16:10 card-media frame, and a `/projects/` redirect. Implement the approved project content once in the homepage grid; `/projects/` will continue to reach it through its existing redirect. Keep all media inside the current card-media frame. Do not recreate the former carousel or change the deployed layout to match it.
+The approved project scope, names, categories, descriptions, public/private link behavior, and Near But Far caveat still fit. Later user follow-ups supplied screenshots to replace only the GestureDeck and Near But Far CSS illustrations; DevCompanion retains its approved CSS artwork. The spec's page-specific implementation describes an earlier site version: project arrays on two pages, carousel checkpoints, fallback lists, duplicated artwork panels, and a 16:8 carousel frame. `origin/main` instead has six static cards in one homepage grid, a 16:10 card-media frame, and a `/projects/` redirect. Implement the approved project content once in the homepage grid; `/projects/` will continue to reach it through its existing redirect. Keep all media inside the current card-media frame. Do not recreate the former carousel or change the deployed layout to match it.
 
 ## Global constraints
 
@@ -31,7 +31,7 @@ The approved project scope, names, categories, descriptions, public/private link
 - Do not describe Near But Far as locking, unlocking, reading, or otherwise using macOS secure lock state. State that physical BLE validation is pending.
 - Preserve the deployed avatar and its loading behavior: `index.html` preloads and displays `avatars/formal-photo.png`; do not change the hero, avatar, or critical-asset gate.
 - Preserve the deployed three-column desktop grid, responsive breakpoints, card content pattern, and 16:10 media ratio. `/projects/` remains a redirect to `../#work`.
-- Use the supplied GestureDeck screenshot at `projects/gesturedeck/gesturedeck_image.png` in its existing 16:10 media frame, with descriptive alt text and lazy loading. Keep Near But Far and DevCompanion's CSS-only artwork inside their current media areas, use the existing palette, and mark that decorative markup `aria-hidden="true"`. Add no other image assets.
+- Use the supplied screenshots for GestureDeck and Near But Far in their existing 16:10 card media, with descriptive alt text and lazy loading. For Near But Far, use the Mac screenshot as the backdrop and the iPhone screenshot as an inset overlay. Keep DevCompanion's CSS-only artwork inside its current media area, use the existing palette, and mark that decorative markup `aria-hidden="true"`. Do not imply that Near But Far observes or controls macOS secure lock state. Add no other image assets.
 - Do not add project data arrays, carousel checkpoints, fallback lists, duplicate cards, or shared rendering code.
 - Do not add or run tests for this change; review the resulting content and diff manually.
 
@@ -40,8 +40,10 @@ The approved project scope, names, categories, descriptions, public/private link
 | Path | Responsibility |
 | --- | --- |
 | `index.html` | Static homepage project cards and the deployed avatar preload/display. Add only the three cards after SulatBaybayin; preserve the avatar markup. |
-| `styles.css` | Current project grid, card-media sizing, and responsive styling. Add only the decorative styles for Near But Far and DevCompanion. |
+| `styles.css` | Current project grid, card-media sizing, and responsive styling. Add only the Near But Far image composition and DevCompanion artwork styles. |
 | `projects/gesturedeck/gesturedeck_image.png` | User-supplied GestureDeck screenshot used in its card media. |
+| `projects/near-but-far/near-but-far-mac.png` | User-supplied Mac screenshot used as the Near But Far card media backdrop. |
+| `projects/near-but-far/near-but-far-iphone.png` | User-supplied iPhone screenshot used as the Near But Far card media inset. |
 | `projects/index.html` | Existing redirect to `../#work`; leave it unchanged. |
 | `script.js` | Current critical-asset gate and page interactions; leave it unchanged. |
 
@@ -58,11 +60,11 @@ The approved project scope, names, categories, descriptions, public/private link
 
 ### Task 2: Add abstract media for the new cards
 
-**Files:** `index.html`, `styles.css`, `projects/gesturedeck/gesturedeck_image.png`
+**Files:** `index.html`, `styles.css`, `projects/gesturedeck/gesturedeck_image.png`, `projects/near-but-far/near-but-far-mac.png`, `projects/near-but-far/near-but-far-iphone.png`
 
-1. Use the supplied screenshot for GestureDeck and CSS-only artwork for Near But Far and DevCompanion. Retain the current card-media geometry and 16:10 ratio.
-2. Keep the approved proximity-orbit motif for Near But Far and the workspace-grid motif for DevCompanion in the current card palette. Mark decorative markup `aria-hidden="true"`.
-3. Scope CSS artwork styles to the Near But Far and DevCompanion classes. Reuse existing palette variables such as `--accent`, `--ink`, `--paper`, and `--paper-deep`; leave existing cards and shared grid breakpoints unchanged.
+1. Use the supplied screenshots for GestureDeck and Near But Far and CSS-only artwork for DevCompanion. Retain the current card-media geometry and 16:10 ratio.
+2. Compose the Near But Far card with the Mac screenshot as a backdrop and the iPhone screen as an inset overlay. Use descriptive alt text for both visible screens, without implying that Near But Far observes or controls macOS secure lock state.
+3. Keep the approved workspace-grid motif for DevCompanion in the current card palette and mark its decorative markup `aria-hidden="true"`. Scope screenshot composition styles to Near But Far and artwork styles to DevCompanion; leave existing cards and shared grid breakpoints unchanged.
 4. Do not add other image files or alter the avatar and loader.
 
 ### Task 3: Review the integrated page content
@@ -72,5 +74,5 @@ The approved project scope, names, categories, descriptions, public/private link
 1. Manually confirm that the homepage contains exactly nine cards in the approved order and that the original six cards are unchanged.
 2. Confirm the three new cards use the exact approved copy and categories, GestureDeck links only to its live workspace, and the other two show `Source / private` without repository links.
 3. Confirm Near But Far mentions QR pairing, BLE presence, and pending physical BLE validation without making secure-lock-state claims.
-4. Confirm `/projects/` still redirects to `../#work`, the new media retains the card's 16:10 ratio, the two CSS motifs use the existing palette, and the deployed avatar preload and display still use `avatars/formal-photo.png`.
-5. Review the diff to ensure only the homepage markup, card artwork styles, supplied GestureDeck screenshot, and this plan note changed; no tests or unrelated assets are added.
+4. Confirm `/projects/` still redirects to `../#work`, the new media retains the card's 16:10 ratio, the DevCompanion CSS motif uses the existing palette, and the deployed avatar preload and display still use `avatars/formal-photo.png`.
+5. Review the diff to ensure only the homepage markup, card artwork styles, supplied screenshots, and this plan note changed; no tests or unrelated assets are added.
