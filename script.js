@@ -84,6 +84,25 @@ function startCriticalAssetGate() {
 
 startCriticalAssetGate();
 
+const projectImageViewer = document.querySelector("#project-image-viewer");
+
+if (projectImageViewer) {
+  const viewerImage = projectImageViewer.querySelector(".project-image-viewer__image");
+
+  document.addEventListener("click", (event) => {
+    const trigger = event.target.closest(".project-image-trigger");
+    if (!trigger || !viewerImage) return;
+
+    const image = trigger.querySelector("img");
+    if (!image) return;
+
+    viewerImage.src = image.currentSrc || image.src;
+    viewerImage.alt = image.alt;
+    trigger.focus({ preventScroll: true });
+    projectImageViewer.showModal();
+  });
+}
+
 const menuToggle = document.querySelector(".menu-toggle");
 const siteNav = document.querySelector(".site-nav");
 
