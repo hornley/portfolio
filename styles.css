@@ -1923,6 +1923,32 @@ h2 {
   object-fit: cover;
 }
 
+.project-image-trigger {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.project-card__image.project-image-trigger {
+  background: var(--paper-deep);
+}
+
+.project-image-trigger:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.project-image-trigger > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: inherit;
+}
+
 .project-art {
   position: relative;
   overflow: hidden;
@@ -2000,6 +2026,52 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.project-image-viewer {
+  width: min(96vw, 96rem);
+  max-width: none;
+  max-height: 92dvh;
+  padding: 3.5rem 1rem 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(246, 246, 242, 0.25);
+  border-radius: 0.75rem;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.project-image-viewer::backdrop {
+  background: rgba(17, 19, 17, 0.88);
+}
+
+.project-image-viewer form {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  margin: 0;
+}
+
+.project-image-viewer__close {
+  border: 1px solid rgba(246, 246, 242, 0.5);
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.project-image-viewer__close:focus-visible {
+  outline: 3px solid var(--paper);
+  outline-offset: 3px;
+}
+
+.project-image-viewer__image {
+  display: block;
+  width: 100%;
+  max-height: calc(92dvh - 5rem);
+  object-fit: contain;
+  margin: 0 auto;
 }
 
 .project-card__content {
