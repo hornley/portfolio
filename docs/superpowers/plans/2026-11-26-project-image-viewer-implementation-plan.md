@@ -50,8 +50,8 @@
 - [x] Add one native modal dialog after the project grid. Include a visible close button and an image element for the selected full-size source. Give the dialog an accessible name.
 - [x] In `script.js`, add one delegated click handler for `.project-image-trigger`. Copy the contained image's current source and alternative text to the dialog image, then call `showModal()`. Let the native dialog close on Escape and the `method="dialog"` close button.
 - [x] In `styles.css`, reset the trigger button's appearance without changing the existing card media sizing or layered compositions. Add a visible keyboard focus style. Style the dialog and backdrop, and contain its image within the viewport with `object-fit: contain`.
-- [ ] Manually inspect the Vercel preview at a narrow phone width and a desktop width. Activate each of the twelve images by pointer and keyboard; confirm every source opens uncropped, including all six images in the layered cards.
-- [ ] Close with the visible button and Escape. Confirm focus returns to the trigger and the page remains at its prior scroll position.
-- [ ] Review all nine cards for unchanged order, copy, image composition, and closed-state layout. Confirm all `src` paths resolve and run `git diff --check`.
+- [x] Manually inspect the updated Vercel preview at 1280 × 800 and 390 × 844. Open all twelve images by pointer at both sizes and by Enter/Space at desktop; confirm each source and alternative text match and each full image fits inside the viewport.
+- [x] Close with the visible button and Escape. Confirm focus returns to each opening trigger and the page remains at its prior scroll position.
+- [x] Review all nine cards for order, copy, image composition, and closed-state layout. Confirm all twelve sources load, the six standard card frames remain 16:10 after loading, the layered compositions remain unchanged, the mobile page has no horizontal overflow, and `git diff --check` passes.
 
 **Automated tests:** None are planned. The repository has no test runner or required test suite; validate the interaction in the project preview instead.
